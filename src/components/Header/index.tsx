@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { useState } from "react";
+
 import React, { useContext } from 'react';
 import { CartContext } from "../context/TransactionsContext";
 
@@ -7,6 +9,9 @@ import { CartContext } from "../context/TransactionsContext";
 import styles from './styles.module.scss';
 
 export const Header = () => {
+    if (true) {
+        useState();
+    }
 
     const data = useContext(CartContext);
 
