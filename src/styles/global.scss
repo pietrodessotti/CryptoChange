@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+}
+
+:root {
+    // --header: #150336;
+    --header: #ffffff;
+    
+    --border: #432870;
+    --background: #dad8d8;
+
+    --titles: #38A169;
+    --paragraphs: #C6F6D5;
+    --logotipo: #68D391;
+}
+
+@media(max-width: 1000px) {
+    html {
+        font-size: 93.75%;
+    }
+}
+
+@media(max-width: 720px) {
+    html {
+        font-size: 87.5%;
+    }
+}
+
+body {
+    background: var(--background);
+    color: var(--titles);
+}
+
+body, input, textarea, select, button {
+    font: 400 1rem "Roboto" sans-serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
