@@ -26,4 +26,15 @@
                 color: var(--title);
             }
         }
+    
+        select {
+            border: none;
+            border-bottom: 1px solid #9393ab;
+            position: absolute;
+            right: 70px;
+            
+            *:focus {
+                outline: none;
+            }
+        }
     }

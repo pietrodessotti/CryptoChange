@@ -4,18 +4,18 @@ import { useEffect } from 'react';
 import { api } from '../services/api';
 
 export const Home = () => {
-//   useEffect(() => {
-//     api.get('coins?currency=BRL').then(response => console.log(response.data))
-// }, [])
+  //   useEffect(() => {
+  //     api.get('coins?currency=BRL').then(response => console.log(response.data))
+  // }, [])
 
-return (
+  return (
     <>
-       <Head>
+      <Head>
         <title>Home - CryptoChange</title>
       </Head>
-      <h1>
+      {/* <h1>
         Hello World Next.Js
-      </h1>
+      </h1> */}
     </>
 
   )
