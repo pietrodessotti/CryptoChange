@@ -1,6 +1,4 @@
-import { Header } from "./Header"
-import { Body } from "./Body"
-
+import Container from "./components/Container"
 
 /**
  * @export 
@@ -13,18 +11,12 @@ import { Body } from "./Body"
  */
 export const Home = (): JSX.Element => {
 
-
     return (
         <>
-            <Header />
-
-            <Body />
-
-            <footer style={{ marginTop: 50, border: '2px solid red' }}>
-                teste
-            </footer>
-
+          <Container />
         </>
     )
 }
+
+export default Home;
 

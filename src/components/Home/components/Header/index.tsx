@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Image from "next/image";
 
-import { CartContext } from "../../context/TransactionsContext";
+import { CartContext } from "../../../context/TransactionsContext";
 
 import styles from './styles.module.scss';
-import { comercialCoin } from '../../../services/api';
+import { comercialCoin } from '../../../../services/api';
 
 type ComercialCoins= {
     base_code: string;
@@ -35,9 +35,9 @@ export const Header = () => {
 
     // console.log(convertComercialCoin)
 
-    for(let converting of convertComercialCoin) {
-        console.log(converting)
-    }
+    // for(let converting of convertComercialCoin) {
+    //     console.log(converting)
+    // }
 
 
     return (
@@ -75,3 +75,5 @@ export const Header = () => {
         </header>
     )
 }
+
+export default Header;

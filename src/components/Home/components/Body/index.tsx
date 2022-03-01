@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import styles from './styles.module.scss';
-import { api } from '../../../services/api';
+import { api } from '../../../../services/api';
+
 
 interface Coins {
     name?: string;
@@ -12,6 +11,10 @@ interface Coins {
     websiteUrl?: string;
     id?: string;
     teste: string;
+}
+
+type Props = {
+    onOpenNewTransactionModal: () => void;
 }
 
 /**
@@ -23,7 +26,7 @@ interface Coins {
  * Componente responsável por montar o body
  * da home page.
  */
-export const Body = () => {
+export const Body = ({onOpenNewTransactionModal}: Props) => {
     const [cryptoCoins, setCryptoCoins] = useState<Coins[]>([]);
     const [typeComercialCoin, setTypeComercialCoin] = useState('USD')
 
@@ -32,33 +35,39 @@ export const Body = () => {
             .then(response => setCryptoCoins(response.data.coins))
     }, [])
 
-
     return (
-        <div className={styles.test}>
+        <>
+            <div className={styles.test}>
+                <button onClick={onOpenNewTransactionModal} className={styles.buttonBuyCrypto}>
+                    Comprar Crypto
+                </button>
 
-        <table className={styles.tableContainer}>
-            <thead className={styles.tableHeaderContainer}>
-                <th>Nome</th>
-                <th>Símbolo</th>
-                <th>Preço</th>
-                <th>Website Link</th>
-                <th>Comprar Cripto</th>
-            </thead>
-            <tbody>
-                {cryptoCoins.map(unityCoin => (
-                    <tr  className={styles.tableBodyContainer} key={unityCoin.id}>
-                        <td>{unityCoin.name}</td>
-                        <td>{unityCoin.symbol}</td>
-                        <td>R$ {unityCoin.price}</td>
-                        <td><a href={unityCoin.websiteUrl} target='_blank' rel="noreferrer">{unityCoin.websiteUrl}</a></td>
-                        <td></td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-        </div>
+                <table className={styles.tableContainer}>
+                    <thead className={styles.tableHeaderContainer}>
+                        <th>Nome</th>
+                        <th>Símbolo</th>
+                        <th>Preço</th>
+                        <th>Website Link</th>
+                    </thead>
+                    <tbody>
+                        {cryptoCoins.map(unityCoin => (
+                            <tr className={styles.tableBodyContainer} key={unityCoin.id}>
+                                <td className={styles.nameRow}>{unityCoin.name}</td>
+                                <td className={styles.nameRow}>{unityCoin.symbol}</td>
+                                <td className={styles.nameRow}>{`R$ ${unityCoin.price?.toFixed(5)}`}</td>
+                                <td className={styles.nameRow}><a href={unityCoin.websiteUrl} target='_blank' rel="noreferrer">{unityCoin.websiteUrl}</a></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </>
+
     )
-}
+};
+
+export default Body;
+
 
 // import React, { useEffect, useState } from 'react';
 

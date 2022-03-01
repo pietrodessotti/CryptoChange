@@ -19,6 +19,29 @@
     }
 }
 
+.tableBodyContainer {
+    border: 1px solid red;
+};
+
 .tableHeaderContainer {
     text-align: left;
+}
+
+.nameRow {
+    max-width: 20ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 15px;
+    white-space: nowrap;
+}
+
+.buyCriypto {
+    text-align: center;
+};
+
+.buttonBuyCrypto {
+    display: flex;
+    margin: auto;
+    margin-top: 5px;
+    padding: 4px 20px;
 }
