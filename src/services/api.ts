@@ -8,7 +8,6 @@ export const api = axios.create(
     {
         baseURL: BASE,
     },
-
 );
 
 export const comercialCoin = axios.create(
