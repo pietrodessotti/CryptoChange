@@ -1,0 +1,52 @@
+.selectCoin,
+.inputValue {
+    width: 100%;
+    padding: 0 1.5rem;
+    height: 4rem;
+    border-radius: 0.25rem;
+
+    border: none;
+
+    background-color: #f1f1f1;
+
+    font-weight: 400;
+    font-size: 1rem;
+    outline: none;
+
+    &+input {
+        margin-top: 20px;
+    }
+
+}
+
+.formButtons {
+    position: relative;
+    display: flex;
+    margin-top: 320px;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+
+    button {
+        padding: 8px 40px;
+        border-radius: 7px;
+        color: white;
+        font-weight: bold;
+
+        transition: filter 0.3s;
+
+        &:hover {
+            filter: brightness(0.9);
+        }
+    }
+
+    .cancelButton {
+        border: 1px solid #a33737;
+        background-color: #b94747;
+    }
+
+    .submitButton {
+        border: 1px solid green;
+        background-color: #38A169;
+    }
+}
