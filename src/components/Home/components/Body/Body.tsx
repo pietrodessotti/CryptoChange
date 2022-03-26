@@ -4,25 +4,12 @@ import styles from './styles.module.scss';
 import { api } from '../../../../services/api';
 import { PropCoin } from '../../types';
 
-// type Coins = {
-//   id?: string;
-//   name?: string;
-//   symbol?: string;
-//   price?: number;
-//   websiteUrl?: string;
-// };
-
 type Props = {
   onOpenNewTransactionModal: () => void;
   coin: Array<PropCoin>;
   cryptoCoins: [];
   typeCurrency: string;
-
-  //   id: string;
-  //   name: string;
-  //   symbol: string;
-  //   price: number;
-  //   website: string;
+  dataCurrency: any;
 };
 
 /**
@@ -35,14 +22,9 @@ type Props = {
  * da home page.
  */
 export const Body = ({
-  coin,
-  //   id,
-  //   name,
-  //   price,
-  //   symbol,
-  //   website,
   onOpenNewTransactionModal,
   typeCurrency,
+  dataCurrency,
 }: Props) => {
   const [cryptoCoins, setCryptoCoins] = useState<PropCoin[]>([]);
 
@@ -52,17 +34,15 @@ export const Body = ({
       .then((response) => setCryptoCoins(response.data.coins));
   }, [typeCurrency]);
 
-  console.log(typeCurrency);
-
   return (
     <>
       <div className={styles.test}>
-        <button
+        {/* <button
           onClick={onOpenNewTransactionModal}
           className={styles.buttonBuyCrypto}
         >
           Comprar Crypto
-        </button>
+        </button> */}
 
         <table className={styles.tableContainer}>
           <thead className={styles.tableHeaderContainer}>
@@ -70,6 +50,7 @@ export const Body = ({
             <th>Símbolo</th>
             <th>Preço</th>
             <th>Website Link</th>
+            <th className={styles.buyCriypto}>Comprar Crypto</th>
           </thead>
           <tbody>
             {cryptoCoins.map((unityCoin) => (
@@ -89,6 +70,9 @@ export const Body = ({
                   >
                     {unityCoin.websiteUrl}
                   </a>
+                </td>
+                <td className={styles.buyCriypto}>
+                  <button onClick={onOpenNewTransactionModal}>+</button>
                 </td>
               </tr>
             ))}

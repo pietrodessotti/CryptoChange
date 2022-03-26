@@ -2,33 +2,32 @@
 .inputValue {
     width: 100%;
     padding: 0 1.5rem;
-    height: 4rem;
+    height: 2.5rem;
     border-radius: 0.25rem;
 
     border: none;
-
-    background-color: #f1f1f1;
+    border-bottom: 2px solid #d4d4d4;
 
     font-weight: 400;
     font-size: 1rem;
     outline: none;
+    box-shadow: 0 3px 5px 1px #e4e4e4;
 
     &+input {
         margin-top: 20px;
     }
-
 }
 
 .formButtons {
     position: relative;
     display: flex;
-    margin-top: 320px;
+    margin-top: 20rem;
     gap: 20px;
     align-items: center;
     justify-content: center;
 
     button {
-        padding: 8px 40px;
+        padding: 8px 30px;
         border-radius: 7px;
         color: white;
         font-weight: bold;

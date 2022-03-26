@@ -17,16 +17,10 @@ import ModalExchange from '../ModalExchange';
 //   websiteUrl: string;
 // }
 
-interface Bla {
-  ComercialCoins: {
-    base_code: string;
-    conversion_rates: string;
-  };
-}
-
 type PropCoins = {
   coin: Array<PropCoin>;
   typeCurrency: string;
+  dataCurrency: any;
 };
 
 /**
@@ -41,6 +35,7 @@ type PropCoins = {
 export const Container = ({
   coin,
   typeCurrency,
+  dataCurrency,
 }: //   id,
 //   name,
 //   price,
@@ -80,15 +75,11 @@ PropCoins): JSX.Element => {
     <>
       <Header />
       <Body
+        dataCurrency={dataCurrency}
         typeCurrency={typeCurrency}
         cryptoCoins={[]}
         onOpenNewTransactionModal={handleOpenModal}
         coin={coin}
-        // id={id}
-        // name={name}
-        // price={price}
-        // symbol={symbol}
-        // website={website}
       />
 
       <ModalExchange isOpen={modalIsOpen} onRequestClose={handleCloseModal} />

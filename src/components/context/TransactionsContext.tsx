@@ -1,10 +1,11 @@
-import { createContext } from "react";
-
-// type Props = {
-//     children: any;
-// }
+import React, { createContext } from 'react';
 
 export const CartContext = createContext({});
+
+
+export const CartProvider({ children }) =>  {
+  return <CartContext.Provider>{children}</CartContext.Provider>;
+}
 
 // export const CartProvider = ({ children }: Props)=> {
 

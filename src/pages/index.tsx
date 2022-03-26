@@ -2,8 +2,7 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Container from '../components/Home/components/Container';
 import { PropCoin } from '../components/Home/types';
-
-import { api } from '../services/api';
+import { api, comercialCoin } from '../services/api';
 
 // type allProps = {
 //   id: string;
@@ -18,6 +17,18 @@ import { api } from '../services/api';
 
 type HomeProps = {
   coins: Array<PropCoin>;
+
+  onOpenNewTransactionModal: () => void;
+  coin: Array<PropCoin>;
+  cryptoCoins: [];
+  dataCurrency: any;
+  typeCurrency: any;
+
+  //   id: string;
+  //   name: string;
+  //   symbol: string;
+  //   price: number;
+  //   website: string;
   // id: string;
   // name: string;
   // price: number;
@@ -28,13 +39,64 @@ type HomeProps = {
   // website: string;
 };
 
-export const Home = ({ coins }: HomeProps) => {
+export default function Home({
+  coins,
+  coin,
+  dataCurrency,
+  typeCurrency,
+  onOpenNewTransactionModal,
+  cryptoCoins,
+}: HomeProps) {
   return (
     <>
       <Head>
         <title>Home - CryptoChange</title>
       </Head>
 
+      <Container
+        coin={coin}
+        typeCurrency={typeCurrency}
+        dataCurrency={dataCurrency}
+      />
+
+      {/* <header className={styles.headerContainer}>
+        <div className={styles.headerContent}>
+          <Image
+            src="/images/logotipo-ethereum.png"
+            alt="Logotipo do CryptoChange"
+            width={40}
+            height={40}
+          />
+          <a href="">CryptoChange</a>
+          <nav>
+            <a href="">Home</a>
+            <a href="">Exchenge</a>
+          </nav>
+
+          <select
+            value={typeCurrency}
+            onChange={handleChangeValue}
+            name="select"
+          >
+            {convertAll.map((comercialCoin) => (
+              <>
+                <option value="BRL" hidden>
+                  BRL
+                </option>
+                <option>{comercialCoin[0]}</option>
+              </>
+            ))}
+          </select>
+        </div>
+      </header> */}
+
+      {/* <Body
+        coin={coin}
+        cryptoCoins={cryptoCoins}
+        onOpenNewTransactionModal={onOpenNewTransactionModal}
+        typeCurrency={typeCurrency}
+        dataCurrency={dataCurrency}
+      /> */}
       {/* <body>
         {coins.map((item) => (
           <>
@@ -60,27 +122,35 @@ export const Home = ({ coins }: HomeProps) => {
       </main> */}
     </>
   );
-};
+}
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const crypto = await api.get('coins?currency=BRL');
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const res = await comercialCoin.get('BRL');
 
-  const coins = {
-    data: crypto.data.coins,
-    // name: crypto.data.name,
-    // price: crypto.data.price,
-    // priceChangeHour: crypto.data.priceChange1h,
-    // priceChangeDay: crypto.data.priceChange1d,
-    // priceChangeWeek: crypto.data.priceChange1w,
-    // symbol: crypto.data.symbol,
-    // website: crypto.data.websiteUrl,
-  };
+//   const data = await res.json();
 
-  return {
-    props: {
-      coins,
-    },
-  };
-};
+//   console.log(data);
 
-export default Home;
+//   return { props: { data } };
+// };
+
+// export const getStaticProps: GetServerSideProps = async () => {
+//   const dataCurrency = api
+//     .get(`coins?currency=BRL`)
+//     .then((response) => response.data.coins);
+
+//   // Fetch data from external API
+//   const typeCurrency = await comercialCoin
+//     .get(
+//       `https://v6.exchangerate-api.com/v6/c87de6b059e6791749e979f7/latest/BRL`
+//     )
+//     .then((response) => response.data.conversion_rates);
+
+//   const returnDataProducts = {
+//     dataCurrencyItems: dataCurrency,
+//     typeCurrencyItems: typeCurrency,
+//   };
+
+//   // Pass data to the page via props
+//   return { props: { returnDataProducts } };
+// };

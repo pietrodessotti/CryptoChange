@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import { CartContext } from '../../../context/TransactionsContext';
-
 import styles from './styles.module.scss';
 import { comercialCoin } from '../../../../services/api';
 
