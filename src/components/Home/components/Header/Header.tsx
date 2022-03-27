@@ -24,6 +24,10 @@ type ComercialCoins = {
  */
 export const Header = () => {
   const [typeCurrency, setTypeCurrency] = useState('');
+  const [otherData, setOtherData] = useState('');
+  const [valueCoin, setValueCoin] = useState(0);
+
+
 
   const [convertComercialCoin, setConvertComercialCoin] = useState<
     ComercialCoins[]
@@ -39,11 +43,27 @@ export const Header = () => {
       );
   }, []);
 
+  useEffect(() => {
+    comercialCoin
+      .get(
+        `https://v6.exchangerate-api.com/v6/c87de6b059e6791749e979f7/latest/BRL`
+      )
+      .then((response) =>
+        setOtherData(response.data)
+      );
+  }, []);
+
+
   const convertAll = Object.entries(convertComercialCoin);
+
+  const valueChangeCurrency = 10;
+
 
   const handleChangeValue = (e: any) => {
     setTypeCurrency(e.target.value);
   };
+
+  console.log(typeCurrency)
 
   return (
     <header className={styles.headerContainer}>
@@ -60,12 +80,17 @@ export const Header = () => {
           <a href="">Exchenge</a>
         </nav>
 
-        <select value={typeCurrency} onChange={handleChangeValue} name="select">
+        <div className={styles.headerCurrency}>
+          <p>{`${new Intl.NumberFormat('pt-BR', {
+            style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
+          }).format(valueChangeCurrency)
+            }`}</p>
+
+        </div>
+
+        <select value={typeCurrency} id="selectWithSearch" onChange={handleChangeValue}>
           {convertAll.map((comercialCoin) => (
             <>
-              <option value="BRL" hidden>
-                BRL
-              </option>
               <option>{comercialCoin[0]}</option>
             </>
           ))}

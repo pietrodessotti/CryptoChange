@@ -1,9 +1,41 @@
-.test {
+.containerTitleTable {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 0.5rem;
+
+    .imageLogo {
+        position: absolute;
+        left: 1rem;
+    }
+
+    .titleTable {
+        text-align: center;
+        font-size: 1.2rem;
+        margin: 10px auto;
+        color: black;
+    }
+
+    .inputSearch { 
+        position: absolute;
+        right: 1rem;
+        padding: 0.5rem;
+    
+        outline: none;
+        border-radius: 5px;
+        border: 1px solid rgb(216, 216, 216);
+        box-shadow: inset 0 0 5px 0 hsl(1, 10%, 80%), 0 0 5px hsl(3, 99%, 99%);
+    }
+}
+
+.container {
+    position: relative;
     margin: auto;
-    margin-top: 30px;
+    margin-top: 20px;
 
     max-height: 80vh;
-    width: 950px;
+    width: 80vw;
     overflow: auto;
 
     border-radius: 10px;
@@ -11,28 +43,62 @@
     background-color: white;
     border: 1px solid rgb(216, 216, 216);
 
-    .tableContainer { 
-        width: 100%;
+    background-color: white;
 
-        padding: 20px;
-        border-radius: 12px;
+    .tableContainer { 
+        margin-top: 2rem;
+
+        width: 100%;
+        padding: 0.5rem 1.5rem;
+        border-radius: 1.2rem;
+
+        border-spacing: 0px 2px;
+
+        tr:nth-child(even) {
+            background: #fcfcfc;
+        }
+        tr:nth-child(odd) {
+            background: #f1f0f0;
+        }
     }
 }
-
-.tableBodyContainer {
-    border: 1px solid red;
-};
 
 .tableHeaderContainer {
     text-align: left;
 }
 
-.nameRow {
+.nameRow ,
+.priceChangeNegative,
+.priceChangePositive {
     max-width: 20ch;
     overflow: hidden;
     text-overflow: ellipsis;
     margin-right: 15px;
     white-space: nowrap;
+}
+
+// .priceChangePositive {
+//    color: blue;
+// }
+
+// .priceChangeNegative {
+//    color: red;
+// }
+
+.buttonChangeCrypto {
+    padding: 5px;
+    text-align: center;
+}
+
+.columnSymbol {
+    padding: 5px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    :nth-child(1) {
+        margin-right: 5px;
+    }
 }
 
 .buyCriypto {
@@ -42,6 +108,11 @@
 .buttonBuyCrypto {
     display: flex;
     margin: auto;
-    margin-top: 5px;
+    margin: 5px auto;
     padding: 4px 20px;
+    border-radius: 5px;
+    border: 1px solid rgb(78, 173, 40);
+    background-color: rgb(96, 194, 57);
+    color: white;
+    font-weight: bold;
 }
