@@ -77,14 +77,6 @@
     white-space: nowrap;
 }
 
-// .priceChangePositive {
-//    color: blue;
-// }
-
-// .priceChangeNegative {
-//    color: red;
-// }
-
 .buttonChangeCrypto {
     padding: 5px;
     text-align: center;
@@ -115,4 +107,34 @@
     background-color: rgb(96, 194, 57);
     color: white;
     font-weight: bold;
+    
+    transition: 0.3s;
+    
+    transform: 2s;
+    transition: width 2s, height 2s, background-color 2s, transform 2s;
+
+    &:hover {
+        background-color: #3a9952;
+        -webkit-transform: rotate(-2deg);
+        transform: rotate(-2deg);
+    }
+}
+
+.MessageNoneCrypto {
+    color: gray;
+    font-size: 1.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2rem;
+
+    text-align: center;
+}
+
+.referenceInputSearch {
+    color: black;
+    transition: 0.3s;
+    border-bottom: 1px solid #03bd31;
+
+    &:hover {
+        color: #03bd31;
+    }
 }

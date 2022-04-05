@@ -1,5 +1,6 @@
 .selectCoin,
-.inputValue {
+.inputValue,
+.totalWithSelect {
     width: 100%;
     padding: 0 1.5rem;
     height: 2.5rem;
@@ -13,18 +14,42 @@
     outline: none;
     box-shadow: 0 3px 5px 1px #e4e4e4;
 
-    &+input {
-        margin-top: 20px;
+    &:focus {
+        border-bottom: 2px solid #00bcd4;
+    }
+
+    &::placeholder {
+        color: #d4d4d4;
     }
 }
 
+.selectCoin{
+    background-color: #dddddd;
+}
+
+.totalWithSelect {
+    background-color: #dddddd;
+
+    appearance: none;
+}
+
+.label {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #828282;
+    margin-bottom: 0.5rem;
+}
+
 .formButtons {
-    position: relative;
+    position: absolute;
     display: flex;
-    margin-top: 20rem;
+    bottom: 3rem;
     gap: 20px;
     align-items: center;
     justify-content: center;
+
+    width: calc(100% - 6rem);
+    margin: auto;
 
     button {
         padding: 8px 30px;

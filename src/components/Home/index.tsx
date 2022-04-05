@@ -1,3 +1,6 @@
+import React from 'react';
+
+import { TransactionsProvider } from '../Provider';
 import Container from './components/Container';
 
 /**
@@ -10,7 +13,10 @@ import Container from './components/Container';
  * página de home.
  */
 export const Home = (): JSX.Element => {
-  return <>{/* <Container /> */}</>;
+  return <></>;
+    // <TransactionsProvider>
+    //   <Container />
+    // </TransactionsProvider>
 };
 
 export default Home;

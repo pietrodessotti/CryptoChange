@@ -1,18 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import { CartContext } from '../../../context/TransactionsContext';
 import styles from './styles.module.scss';
-import { comercialCoin } from '../../../../services/api';
-
-type ComercialCoins = {
-  base_code: string;
-  conversion_rates: {
-    key: string;
-    value: string;
-  };
-  typeCurrency: string;
-};
+import { useTransactions } from '../../../Provider/useTransactions';
+import { api, apiLocal } from '../../../../services/api';
 
 /**
  * @export
@@ -23,47 +14,19 @@ type ComercialCoins = {
  * Componente responsável por montar o Header da aplicação.
  */
 export const Header = () => {
-  const [typeCurrency, setTypeCurrency] = useState('');
-  const [otherData, setOtherData] = useState('');
-  const [valueCoin, setValueCoin] = useState(0);
+  const { typeCurrency, newConvert, handleChangeValue, values } = useTransactions();
 
+  // const [ dataValues, setDataValues ] = useState({});
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await apiLocal.get(`transactions`);
+  //     setDataValues(response.data);
+  //   };
+  //   fetchData();
+  // }, []);
 
-  const [convertComercialCoin, setConvertComercialCoin] = useState<
-    ComercialCoins[]
-  >([]);
-
-  useEffect(() => {
-    comercialCoin
-      .get(
-        `https://v6.exchangerate-api.com/v6/c87de6b059e6791749e979f7/latest/BRL`
-      )
-      .then((response) =>
-        setConvertComercialCoin(response.data.conversion_rates)
-      );
-  }, []);
-
-  useEffect(() => {
-    comercialCoin
-      .get(
-        `https://v6.exchangerate-api.com/v6/c87de6b059e6791749e979f7/latest/BRL`
-      )
-      .then((response) =>
-        setOtherData(response.data)
-      );
-  }, []);
-
-
-  const convertAll = Object.entries(convertComercialCoin);
-
-  const valueChangeCurrency = 10;
-
-
-  const handleChangeValue = (e: any) => {
-    setTypeCurrency(e.target.value);
-  };
-
-  console.log(typeCurrency)
+  // console.log(dataValues)
 
   return (
     <header className={styles.headerContainer}>
@@ -79,22 +42,23 @@ export const Header = () => {
           <a href="">Home</a>
           <a href="">Exchenge</a>
         </nav>
+        <>
+          <div className={styles.headerCurrency}>
+            <p>{`${new Intl.NumberFormat('pt-BR', {
+              style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
+            }).format(values[0].total)
+              }`}</p>
 
-        <div className={styles.headerCurrency}>
-          <p>{`${new Intl.NumberFormat('pt-BR', {
-            style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
-          }).format(valueChangeCurrency)
-            }`}</p>
+          </div>
 
-        </div>
-
-        <select value={typeCurrency} id="selectWithSearch" onChange={handleChangeValue}>
-          {convertAll.map((comercialCoin) => (
-            <>
-              <option>{comercialCoin[0]}</option>
-            </>
-          ))}
-        </select>
+          <select value={typeCurrency} onChange={handleChangeValue}>
+            {newConvert.map((comercialCoin) => (
+              <>
+                <option>{comercialCoin.name}</option>
+              </>
+            ))}
+          </select>
+        </>
       </div>
     </header>
   );
