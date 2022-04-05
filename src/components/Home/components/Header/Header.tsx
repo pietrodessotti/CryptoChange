@@ -46,7 +46,7 @@ export const Header = () => {
           <div className={styles.headerCurrency}>
             <p>{`${new Intl.NumberFormat('pt-BR', {
               style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
-            }).format(values[0].total)
+            }).format(values[0].total || 0)
               }`}</p>
 
           </div>
