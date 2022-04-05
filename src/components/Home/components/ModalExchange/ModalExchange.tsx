@@ -1,19 +1,14 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 
 import styles from './styles.module.scss';
-// import { api } from '../../../../services/api';
-import { PropCoin } from '../../types';
+import { useTransactions } from '../../../Provider/useTransactions';
 
 type PropsModal = {
   isOpen: boolean;
   onRequestClose: () => void;
 };
-
-interface PropsForm {
-  nameCrypto?: string;
-}
 
 /**
  * @export
@@ -27,16 +22,18 @@ export const ModalExchange = ({
   isOpen,
   onRequestClose,
 }: PropsModal): JSX.Element => {
-  const { register, handleSubmit } = useForm();
-  const onSubmit: SubmitHandler<PropsForm> = (data) => console.log(data);
+  const { coinSelected, typeCurrency, handleCreateNewTransaction, dataItems } = useTransactions();
+  const { register } = useForm();
+  const [valueInputQuantity, setValueInputQuantity] = useState(0);
 
-  const [cryptoCoins, setCryptoCoins] = useState<PropCoin[]>([]);
-  // const [typeComercialCoin, setTypeComercialCoin] = useState('USD');
+  const dataItemsValue = dataItems.map((item) => item.priceChange1d);
 
-  // const [selectCoin, setSelectCoin] = useState('');
-  // const [quantityCoin, setQuantityCoin] = useState();
-  // const [buyValue, setBuyValue] = useState();
-  // const [idCoin, setIdCoin] = useState('');
+  const sortFunction = (a: number, b: number) => {
+    return b - a;
+  };
+
+
+  // console.log(dataItemsValue.sort(sortFunction));
 
   return (
     <div className={styles.modal}>
@@ -46,30 +43,38 @@ export const ModalExchange = ({
         overlayClassName="react-modal-overlay"
         className="react-modal-content"
       >
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleCreateNewTransaction}>
           <div>
-            <select className={styles.selectCoin} {...register('nameCrypto')}>
-              {cryptoCoins.map((item) => (
-                <option key={item.id} value={item.name}>
-                  {item.name}
-                </option>
-              ))}
+            <select className={styles.selectCoin} {...register('nameCrypto')} disabled>
+              <option value={coinSelected.name}>
+                {coinSelected.name}
+              </option>
             </select>
 
-            <input
-              min={0}
-              className={styles.inputValue}
-              type="number"
-              {...register('quantity')}
-              required
-            />
+            <label htmlFor='quantityOfCoins' className={styles.label}>
+              Quantidade de moedas
+              <input
+                placeholder="Quantidade de moedas"
+                min={0.00001}
+                step={0.00001}
+                className={styles.inputValue}
+                type="number"
+                {...register('quantity')}
+                onChange={(e => setValueInputQuantity(Number(e.target.value)))}
+                value={valueInputQuantity}
+                required
+              />
+            </label>
 
-            {/* {cryptoCoins.map(
-            (getValue) =>
-              getValue.name !== selectCoin && (
-                <p>O valor dessa transação é:{getValue.price}</p>
-              )
-          )} */}
+            <p>O preço dessa moeda variou em {coinSelected.priceChange1d} no último dia</p>
+
+            <select className={styles.totalWithSelect} {...register('referencePrice')} disabled>
+              <option value={coinSelected.price * valueInputQuantity || 0}>
+                {new Intl.NumberFormat('pt-BR', {
+                  style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
+                }).format(coinSelected.price * valueInputQuantity || 0)}
+              </option>
+            </select>
 
             <div className={styles.formButtons}>
               <button onClick={onRequestClose} className={styles.cancelButton}>

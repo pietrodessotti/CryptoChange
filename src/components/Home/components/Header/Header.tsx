@@ -1,19 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import { CartContext } from '../../../context/TransactionsContext';
-
 import styles from './styles.module.scss';
-import { comercialCoin } from '../../../../services/api';
-
-type ComercialCoins = {
-  base_code: string;
-  conversion_rates: {
-    key: string;
-    value: string;
-  };
-  typeCurrency: string;
-};
+import { useTransactions } from '../../../Provider/useTransactions';
+import { api, apiLocal } from '../../../../services/api';
 
 /**
  * @export
@@ -24,27 +14,19 @@ type ComercialCoins = {
  * Componente responsável por montar o Header da aplicação.
  */
 export const Header = () => {
-  const [typeCurrency, setTypeCurrency] = useState('');
+  const { typeCurrency, newConvert, handleChangeValue, values } = useTransactions();
 
-  const [convertComercialCoin, setConvertComercialCoin] = useState<
-    ComercialCoins[]
-  >([]);
+  // const [ dataValues, setDataValues ] = useState({});
 
-  useEffect(() => {
-    comercialCoin
-      .get(
-        `https://v6.exchangerate-api.com/v6/c87de6b059e6791749e979f7/latest/BRL`
-      )
-      .then((response) =>
-        setConvertComercialCoin(response.data.conversion_rates)
-      );
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await apiLocal.get(`transactions`);
+  //     setDataValues(response.data);
+  //   };
+  //   fetchData();
+  // }, []);
 
-  const convertAll = Object.entries(convertComercialCoin);
-
-  const handleChangeValue = (e: any) => {
-    setTypeCurrency(e.target.value);
-  };
+  // console.log(dataValues)
 
   return (
     <header className={styles.headerContainer}>
@@ -60,17 +42,23 @@ export const Header = () => {
           <a href="">Home</a>
           <a href="">Exchenge</a>
         </nav>
+        <>
+          <div className={styles.headerCurrency}>
+            <p>{`${new Intl.NumberFormat('pt-BR', {
+              style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
+            }).format(values[0].total || 0)
+              }`}</p>
 
-        <select value={typeCurrency} onChange={handleChangeValue} name="select">
-          {convertAll.map((comercialCoin) => (
-            <>
-              <option value="BRL" hidden>
-                BRL
-              </option>
-              <option>{comercialCoin[0]}</option>
-            </>
-          ))}
-        </select>
+          </div>
+
+          <select value={typeCurrency} onChange={handleChangeValue}>
+            {newConvert.map((comercialCoin) => (
+              <>
+                <option>{comercialCoin.name}</option>
+              </>
+            ))}
+          </select>
+        </>
       </div>
     </header>
   );
