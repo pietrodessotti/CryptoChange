@@ -22,7 +22,7 @@ export const ModalExchange = ({
   isOpen,
   onRequestClose,
 }: PropsModal): JSX.Element => {
-  const { coinSelected, typeCurrency, handleCreateNewTransaction, dataItems } = useTransactions();
+  const { coinSelected, typeCurrency, dataItems, handleCreateNewTransaction, loading, handleCancelExchange } = useTransactions();
   const { register } = useForm();
   const [valueInputQuantity, setValueInputQuantity] = useState(0);
 
@@ -32,8 +32,27 @@ export const ModalExchange = ({
     return b - a;
   };
 
+  // /**
+  //  * @function
+  //  * @name handleSubmit
+  //  * 
+  //  * @description
+  //  * Responsável por enviar os dados do formulário
+  //  * para o componente de compra.
+  //  */
+  // const handleCreateNewTransaction = (event: FormEvent) => {
+  //   event.preventDefault();
 
-  // console.log(dataItemsValue.sort(sortFunction));
+  //   const data = {
+  //     id: uuidv1(),
+  //     name: coinSelected.name,
+  //     quantity: valueInputQuantity,
+  //     total: coinSelected.price * valueInputQuantity,
+  //   }
+
+  //   apiLocal.post('/transactions', data);
+  //   handleCloseModal;
+  // };
 
   return (
     <div className={styles.modal}>
@@ -42,10 +61,14 @@ export const ModalExchange = ({
         onRequestClose={onRequestClose}
         overlayClassName="react-modal-overlay"
         className="react-modal-content"
+        ariaHideApp={false}
       >
         <form onSubmit={handleCreateNewTransaction}>
           <div>
-            <select className={styles.selectCoin} {...register('nameCrypto')} disabled>
+            <select
+              className={styles.selectCoin}
+              {...register('nameCrypto')}
+              disabled>
               <option value={coinSelected.name}>
                 {coinSelected.name}
               </option>
@@ -65,10 +88,11 @@ export const ModalExchange = ({
                 required
               />
             </label>
-
             <p>O preço dessa moeda variou em {coinSelected.priceChange1d} no último dia</p>
-
-            <select className={styles.totalWithSelect} {...register('referencePrice')} disabled>
+            <select
+              className={styles.totalWithSelect}
+              {...register('referencePrice')}
+              disabled>
               <option value={coinSelected.price * valueInputQuantity || 0}>
                 {new Intl.NumberFormat('pt-BR', {
                   style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
@@ -76,14 +100,20 @@ export const ModalExchange = ({
               </option>
             </select>
 
-            <div className={styles.formButtons}>
-              <button onClick={onRequestClose} className={styles.cancelButton}>
-                Cancelar
-              </button>
-              <button type="submit" className={styles.submitButton}>
-                Comprar
-              </button>
-            </div>
+            {loading ? (
+              <div className={styles.formButtons}>
+                <p>Carregando...</p>
+              </div>
+            ) : (
+              <div className={styles.formButtons}>
+                <button onClick={handleCancelExchange} className={styles.cancelButton}>
+                  Cancelar
+                </button>
+                <button type="submit" className={styles.submitButton}>
+                  Comprar
+                </button>
+              </div>
+            )}
           </div>
         </form>
       </Modal>

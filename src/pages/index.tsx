@@ -125,26 +125,88 @@
 // }
 
 import { GetServerSideProps } from 'next';
+// import { createServer, Model } from 'miragejs';
 
 import { api, comercialCoin } from '../services/api';
-import Container from '../components/Home/components/Container';
-import { TransactionsProvider } from '../components/Provider';
+import Home from '../Modules/Home/index';
+import { TransactionsProvider } from '../Modules/Provider';
+import TransactionsPage from '../Modules/Transactions';
+
+// createServer({
+//   models: {
+//     transaction: Model,
+//   },
+
+//   seeds(server) {
+//     server.db.loadData({
+//       transactions: [
+//         {
+//           id: 1,
+//           name: 'Bitcoin',
+//           quantity: 1,
+//           total: 1000,
+//         },
+//         {
+//           id: 2,
+//           name: 'Ethereum',
+//           quantity: 1,
+//           total: 1000,
+//         },
+//       ],
+//     })
+//   },
+
+//   routes() {
+//     this.namespace = 'api';
+
+//     this.get('transactions', () => {
+//       return this.schema.all('transaction')
+//     });
+//     this.post('/transactions', (schema, request) => {
+//       const data = JSON.parse(request.requestBody);
+
+//       return schema.create('transaction', data);
+//     });
+//   },
+// });
+
+type Coin = {
+  id: string;
+  name: string;
+  price: number;
+  priceChange1d: number;
+  priceChange1h: number;
+  priceChange1w: number;
+  symbol: string;
+  icon: string;
+  websiteUrl: string;
+}
+
+export type FiduciaryConvert = {
+  name: string | any;
+  price: number | any;
+}
+
+type Props = {
+  coin: Array<Coin>;
+  fiduciary: Array<FiduciaryConvert>;
+}
 
 
 /**
  * @component
  * @component
- * @name Home
+ * @name InitialPage
  * 
  * @description
  * Responsável pela página que renderiza
  * a Home e cuida do do SSR
  */
-export default function Home({ coin, fiduciary }: any): JSX.Element {
+export default function InitialPage({ coin, fiduciary }: Props): JSX.Element {
 
   return (
     <TransactionsProvider firstCoins={coin} fiduciary={fiduciary} >
-      <Container />
+      <Home />
     </TransactionsProvider>
   )
 }

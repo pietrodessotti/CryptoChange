@@ -2,7 +2,7 @@ import React from 'react';
 import { useTransactions } from '../../../Provider/useTransactions';
 
 import Body from '../Body';
-import Footer from '../Footer';
+import Footer from '../../../../components/Footer';
 import Header from '../Header';
 import ModalExchange from '../ModalExchange';
 

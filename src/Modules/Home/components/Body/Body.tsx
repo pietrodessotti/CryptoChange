@@ -22,10 +22,11 @@ type Props = {
 export const Body = ({
   onOpenNewTransactionModal,
 }: Props) => {
-  const { handleSearch, dataItems, typeCurrency  } = useTransactions();
+  const { handleSearch, dataItems, typeCurrency, messageSuccess, values } = useTransactions();
 
   return (
     <>
+      <p className={styles.messageSuccess}>{messageSuccess}</p>
       <div className={styles.container}>
         <div className={styles.containerTitleTable}>
           <div className={styles.imageLogo}>
@@ -51,34 +52,34 @@ export const Body = ({
             <th className={styles.buyCriypto}>Negociar Crypto</th>
           </thead>
           <tbody>
-             {dataItems.map((unityCoin) => (
-                  <tr className={styles.tableBodyContainer} key={unityCoin.id}>
-                    <td className={styles.nameRow}>{unityCoin.name}</td>
-                    <td className={styles.columnSymbol}>
-                      {<img src={unityCoin.icon} width="15" />} {unityCoin.symbol}
-                    </td>
-                    <td className={styles.nameRow}>{new Intl.NumberFormat('pt-BR', {
-                      style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
-                    }).format(unityCoin.price)
-                    }</td>
-                    <td className={styles.nameRow}>
-                      <a
-                        href={unityCoin.websiteUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {unityCoin.websiteUrl}
-                      </a>
-                    </td>
+            {dataItems.map((unityCoin) => (
+              <tr className={styles.tableBodyContainer} key={unityCoin.id}>
+                <td className={styles.nameRow}>{unityCoin.name}</td>
+                <td className={styles.columnSymbol}>
+                  {<img src={unityCoin.icon} width="15" />} {unityCoin.symbol}
+                </td>
+                <td className={styles.nameRow}>{new Intl.NumberFormat('pt-BR', {
+                  style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
+                }).format(unityCoin.price)
+                }</td>
+                <td className={styles.nameRow}>
+                  <a
+                    href={unityCoin.websiteUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {unityCoin.websiteUrl}
+                  </a>
+                </td>
 
-                    <td>
-                      <button key={unityCoin.id} className={styles.buttonBuyCrypto}
-                        onClick={() => onOpenNewTransactionModal(unityCoin)}>
-                        Negociar
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                <td>
+                  <button key={unityCoin.id} className={styles.buttonBuyCrypto}
+                    onClick={() => onOpenNewTransactionModal(unityCoin)}>
+                    Negociar
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
 
@@ -91,6 +92,17 @@ export const Body = ({
           </p>
         )}
 
+      </div>
+      <div>
+        {values.map((item) => (
+          <>
+            <p>{item.name}</p>
+            <p>{item.quantity}</p>
+            <p>{item.id}</p>
+            <p>{item.fiduciary === '' ? 'BRL' : item.fiduciary}</p>
+            <p>{item.total}</p>
+          </>
+        ))}
       </div>
     </>
   );

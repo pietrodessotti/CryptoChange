@@ -29,6 +29,23 @@
     }
 }
 
+.messageSuccess {
+    position: absolute;
+    top: 35px;
+    right: 300px;
+    color: #f1f0f0;;
+    font-size: 1rem;
+    margin: -10px auto 10px;
+    text-align: center;
+    font-weight: bold;
+    width: 250px;
+    
+    border: 1px solid #f1f0f0;;
+    border-radius: 5px;
+    padding: 0.35rem;
+    background-color: rgb(96, 194, 57);
+}
+
 .container {
     position: relative;
     margin: auto;

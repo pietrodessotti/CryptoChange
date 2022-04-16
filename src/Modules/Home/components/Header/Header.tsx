@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 
 import styles from './styles.module.scss';
 import { useTransactions } from '../../../Provider/useTransactions';
-import { api, apiLocal } from '../../../../services/api';
+import Link from 'next/link';
+import TransactionsPage from '../../../Transactions';
+
 
 /**
  * @export
@@ -16,17 +18,14 @@ import { api, apiLocal } from '../../../../services/api';
 export const Header = () => {
   const { typeCurrency, newConvert, handleChangeValue, values } = useTransactions();
 
-  // const [ dataValues, setDataValues ] = useState({});
+  const newMapTransactions = values.map((item) => item.total);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await apiLocal.get(`transactions`);
-  //     setDataValues(response.data);
-  //   };
-  //   fetchData();
-  // }, []);
+  const totalTransactions = newMapTransactions.reduce((totalArr: number, itemArr: number) => {
+    const newTotal = totalArr + itemArr;
+    return newTotal;
+  }, 0);
 
-  // console.log(dataValues)
+  console.log(totalTransactions)
 
   return (
     <header className={styles.headerContainer}>
@@ -37,24 +36,23 @@ export const Header = () => {
           width={40}
           height={40}
         />
-        <a href="">CryptoChange</a>
+        <Link href="/">CryptoChange</Link>
         <nav>
-          <a href="">Home</a>
-          <a href="">Exchenge</a>
+          <Link href="/">Home</Link>
+          <Link href="Transactions">Exchenge</Link>
         </nav>
         <>
           <div className={styles.headerCurrency}>
             <p>{`${new Intl.NumberFormat('pt-BR', {
               style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
-            }).format(values[0].total || 0)
+            }).format(totalTransactions)
               }`}</p>
-
           </div>
 
-          <select value={typeCurrency} onChange={handleChangeValue}>
-            {newConvert.map((comercialCoin) => (
+          <select key={typeCurrency} value={typeCurrency} onChange={handleChangeValue}>
+            {newConvert?.map((comercialCoin) => (
               <>
-                <option>{comercialCoin.name}</option>
+                <option >{comercialCoin.name}</option>
               </>
             ))}
           </select>

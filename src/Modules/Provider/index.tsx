@@ -1,17 +1,25 @@
-import React, { FormEvent, ReactNode, SetStateAction, useCallback, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { FormEvent, ReactNode, SetStateAction, useEffect, useState } from 'react';
 import { createContext } from 'use-context-selector';
 import { api, apiLocal } from '../../services/api';
 
-import { PropCoin, TransactionsContextData, ComercialCoins, FiduciaryConvert } from './types';
+import { PropCoin, TransactionsContextData, FiduciaryConvert } from './types';
 
 export const Transactions = createContext(
   {} as TransactionsContextData
 );
 
+type Data = {
+  id: string,
+  name: string,
+  quantity: number,
+  total: number,
+  fiduciary: string,
+};
+
+
 type TransactionsProviderProps = {
   children: ReactNode;
-  fiduciary: any;
+  fiduciary: Array<FiduciaryConvert>;
   firstCoins: Array<PropCoin>;
 }
 
@@ -29,10 +37,10 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
   const [coinSelected, setCoinSelected] = useState<SetStateAction<PropCoin[]>>([]);
   const [search, setSearch] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
+  const [ values, setValues ] = useState<Data[]>([]);
   const [data, setData] = useState(firstCoins);
-
-  const [ values, setValues ] = useState([{}])
+  const [messageSuccess, setMessageSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (typeCurrency) {
@@ -87,7 +95,7 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
    * Responsável por converter a API de moedas
    * fiduciarias.
    */
-  const newConvert = Object.keys(fiduciary).map((item) => {
+  const newConvert = Object.keys(fiduciary).map((item: any) => {
     return {
       name: item,
       price: fiduciary[item]
@@ -109,15 +117,30 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
 
   /**
    * @function
-   * @name handleOpenModal
+   * @name handleCloseModal
    *
    * @description
    * Função responsável por fechar o modal de
-   * compra.
+   * compra ao clicar em comprar.
    */
   const handleCloseModal = () => {
-    setCoinSelected([]);
-    setModalIsOpen(false);
+    setTimeout(() => {
+      setModalIsOpen(false);
+      setLoading(false);
+    }, 2000);
+  };
+
+  /**
+   * @function
+   * @name handleCancelExchange
+   *
+   * @description
+   * Função responsável por fechar o modal de
+   * compra ao clicar em cancelar.
+   */
+   const handleCancelExchange = () => {
+      setModalIsOpen(false);
+      setLoading(false);
   };
 
   /**
@@ -128,13 +151,25 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
    * Responsável por enviar os dados do formulário
    * para o componente de compra.
    */
-  const handleCreateNewTransaction = (event: FormEvent) => {
+   const handleCreateNewTransaction = (event: FormEvent) => {
     const { nameCrypto, quantity, referencePrice } = event.currentTarget as HTMLFormElement;
     event.preventDefault();
 
-    setValues([{name: nameCrypto.value, quantity: quantity.value, total: referencePrice.value}]);
+      setValues([...values, {
+        id: nameCrypto.value,
+        name: nameCrypto.value,
+        quantity: parseFloat(quantity.value),
+        total: parseFloat(referencePrice.value),
+        fiduciary: typeCurrency,
+      }])
+
+      setMessageSuccess(`${nameCrypto.value} adicionado com sucesso!`);
+      setLoading(true);
+
+      handleCloseModal();
   };
 
+  console.log(values)
   return (
     <>
       <Transactions.Provider value={{
@@ -150,6 +185,9 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
         coinSelected,
         values,
         handleCreateNewTransaction,
+        messageSuccess,
+        loading,
+        handleCancelExchange,
       }}>
         {children}
       </Transactions.Provider>
