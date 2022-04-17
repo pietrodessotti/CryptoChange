@@ -5,6 +5,7 @@ import Image from 'next/image';
 
 import styles from './styles.module.scss';
 import { useTransactions } from '../../../Provider/useTransactions';
+import { Accordion } from '@chakra-ui/react';
 
 type Props = {
   onOpenNewTransactionModal: (coin: any) => void;
@@ -26,7 +27,6 @@ export const Body = ({
 
   return (
     <>
-      <p className={styles.messageSuccess}>{messageSuccess}</p>
       <div className={styles.container}>
         <div className={styles.containerTitleTable}>
           <div className={styles.imageLogo}>
@@ -52,6 +52,7 @@ export const Body = ({
             <th className={styles.buyCriypto}>Negociar Crypto</th>
           </thead>
           <tbody>
+
             {dataItems.map((unityCoin) => (
               <tr className={styles.tableBodyContainer} key={unityCoin.id}>
                 <td className={styles.nameRow}>{unityCoin.name}</td>

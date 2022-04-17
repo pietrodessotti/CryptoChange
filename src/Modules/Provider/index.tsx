@@ -127,7 +127,7 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
     setTimeout(() => {
       setModalIsOpen(false);
       setLoading(false);
-    }, 2000);
+    }, 1500);
   };
 
   /**

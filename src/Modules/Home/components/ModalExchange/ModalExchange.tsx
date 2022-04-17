@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 
+import { Chart } from "react-google-charts";
+
 import styles from './styles.module.scss';
 import { useTransactions } from '../../../Provider/useTransactions';
+import { options } from './configuration/configuration';
 
 type PropsModal = {
   isOpen: boolean;
@@ -22,7 +25,7 @@ export const ModalExchange = ({
   isOpen,
   onRequestClose,
 }: PropsModal): JSX.Element => {
-  const { coinSelected, typeCurrency, dataItems, handleCreateNewTransaction, loading, handleCancelExchange } = useTransactions();
+  const { coinSelected, typeCurrency, dataItems, handleCreateNewTransaction, loading, handleCancelExchange, messageSuccess } = useTransactions();
   const { register } = useForm();
   const [valueInputQuantity, setValueInputQuantity] = useState(0);
 
@@ -54,6 +57,17 @@ export const ModalExchange = ({
   //   handleCloseModal;
   // };
 
+  const data = [
+    [
+      "Variação",
+      "Variação",
+    ],
+    ['1 Hora', coinSelected.priceChange1h],
+    ['1 Dia', coinSelected.priceChange1d],
+    ['1 Semana', coinSelected.priceChange1w],
+  ];
+ 
+
   return (
     <div className={styles.modal}>
       <Modal
@@ -65,17 +79,20 @@ export const ModalExchange = ({
       >
         <form onSubmit={handleCreateNewTransaction}>
           <div>
-            <select
-              className={styles.selectCoin}
-              {...register('nameCrypto')}
-              disabled>
-              <option value={coinSelected.name}>
-                {coinSelected.name}
-              </option>
-            </select>
+            <label htmlFor='quantityOfCoins' className={styles.label}>
+              Criptomoeda:
+              <select
+                className={styles.selectCoin}
+                {...register('nameCrypto')}
+                disabled>
+                <option value={coinSelected.name}>
+                  {coinSelected.name}
+                </option>
+              </select>
+            </label>
 
             <label htmlFor='quantityOfCoins' className={styles.label}>
-              Quantidade de moedas
+              Quantidade de moedas:
               <input
                 placeholder="Quantidade de moedas"
                 min={0.00001}
@@ -88,21 +105,32 @@ export const ModalExchange = ({
                 required
               />
             </label>
-            <p>O preço dessa moeda variou em {coinSelected.priceChange1d} no último dia</p>
-            <select
-              className={styles.totalWithSelect}
-              {...register('referencePrice')}
-              disabled>
-              <option value={coinSelected.price * valueInputQuantity || 0}>
-                {new Intl.NumberFormat('pt-BR', {
-                  style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
-                }).format(coinSelected.price * valueInputQuantity || 0)}
-              </option>
-            </select>
+
+            <label htmlFor='quantityOfCoins' className={styles.label}>
+              Valor total da transação:
+              <select
+                className={styles.totalWithSelect}
+                {...register('referencePrice')}
+                disabled>
+                <option value={coinSelected.price * valueInputQuantity || 0}>
+                  {new Intl.NumberFormat('pt-BR', {
+                    style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
+                  }).format(coinSelected.price * valueInputQuantity || 0)}
+                </option>
+              </select>
+            </label>
+
+            <Chart
+              chartType="Line"
+              width="100%"
+              height="400px"
+              data={data}
+              options={options}
+            />
 
             {loading ? (
               <div className={styles.formButtons}>
-                <p>Carregando...</p>
+                <p className={styles.messageSuccess}>{messageSuccess}</p>
               </div>
             ) : (
               <div className={styles.formButtons}>
