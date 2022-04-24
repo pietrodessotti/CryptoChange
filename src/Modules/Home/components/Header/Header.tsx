@@ -25,8 +25,6 @@ export const Header = () => {
     return newTotal;
   }, 0);
 
-  console.log(totalTransactions)
-
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
@@ -39,7 +37,7 @@ export const Header = () => {
         <Link href="/">CryptoChange</Link>
         <nav>
           <Link href="/">Home</Link>
-          <Link href="Transactions">Exchenge</Link>
+          <Link href="/">Exchenge</Link>
         </nav>
         <>
           <div className={styles.headerCurrency}>
@@ -49,11 +47,9 @@ export const Header = () => {
               }`}</p>
           </div>
 
-          <select key={typeCurrency} value={typeCurrency} onChange={handleChangeValue}>
+          <select value={typeCurrency} onChange={handleChangeValue}>
             {newConvert?.map((comercialCoin) => (
-              <>
-                <option >{comercialCoin.name}</option>
-              </>
+                <option key={comercialCoin.name}>{comercialCoin.name}</option>
             ))}
           </select>
         </>

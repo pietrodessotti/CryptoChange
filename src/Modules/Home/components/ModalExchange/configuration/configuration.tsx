@@ -1,5 +1,5 @@
 export const options = {
     chart: {
-        title: "O preço dessa moeda variou em:",
+        title: "Observe o gráfico da última semana:",
     },
 };

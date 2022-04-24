@@ -52,7 +52,7 @@
     align-items: center;
     justify-content: center;
 
-    margin-top: 50px;
+    margin-top: 20px;
 
     button {
         padding: 8px 30px;
@@ -65,6 +65,10 @@
         &:hover {
             filter: brightness(0.9);
         }
+    }
+    
+    &button {
+        margin-top: 50px;
     }
 
     .cancelButton {
@@ -81,7 +85,7 @@
 .messageSuccess {
     top: 35px;
     right: 300px;
-    color: #f1f0f0;;
+    color: #f1f0f0;
     font-size: 1.2rem;
     margin: -10px auto 10px;
     text-align: center;
@@ -92,4 +96,23 @@
     border-radius: 0.5rem;
     padding: 0.6rem;
     background-color: rgb(96, 194, 57);
+}
+
+.seeGraph {
+    color: #f1f0f0;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px; 
+    border-radius: 5px; 
+    background-color: rgb(87, 75, 253);
+    margin: auto;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    width: 180px;
+
+    transition: filter 0.3s;
+
+    &:hover {
+        filter: brightness(0.9);
+    }
 }

@@ -41,6 +41,8 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
   const [data, setData] = useState(firstCoins);
   const [messageSuccess, setMessageSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+  const [valueInputQuantity, setValueInputQuantity] = useState(0);
+
 
   useEffect(() => {
     if (typeCurrency) {
@@ -124,6 +126,7 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
    * compra ao clicar em comprar.
    */
   const handleCloseModal = () => {
+    setValueInputQuantity(0);
     setTimeout(() => {
       setModalIsOpen(false);
       setLoading(false);
@@ -169,7 +172,6 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
       handleCloseModal();
   };
 
-  console.log(values)
   return (
     <>
       <Transactions.Provider value={{
@@ -188,6 +190,8 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
         messageSuccess,
         loading,
         handleCancelExchange,
+        valueInputQuantity,
+        setValueInputQuantity,
       }}>
         {children}
       </Transactions.Provider>

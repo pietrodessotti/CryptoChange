@@ -52,4 +52,6 @@ export type TransactionsContextData = {
     messageSuccess: string;
     loading: boolean;
     handleCancelExchange: () => void;
+    valueInputQuantity: number;
+    setValueInputQuantity: React.Dispatch<React.SetStateAction<number>>;
 }

@@ -207,6 +207,7 @@ export default function InitialPage({ coin, fiduciary }: Props): JSX.Element {
   return (
     <TransactionsProvider firstCoins={coin} fiduciary={fiduciary} >
       <Home />
+      {/* <TransactionsPage /> */}
     </TransactionsProvider>
   )
 }

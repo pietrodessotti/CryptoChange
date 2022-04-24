@@ -29,6 +29,8 @@
     }
 }
 
+
+
 .messageSuccess {
     position: absolute;
     top: 35px;
@@ -71,6 +73,7 @@
 
         border-spacing: 0px 2px;
 
+        
         tr:nth-child(even) {
             background: #fcfcfc;
         }
@@ -78,6 +81,10 @@
             background: #f1f0f0;
         }
     }
+}
+
+.lineHeaderTable {
+    background-color: white !important;
 }
 
 .tableHeaderContainer {
@@ -154,4 +161,10 @@
     &:hover {
         color: #03bd31;
     }
+}
+
+.skeletonLine {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

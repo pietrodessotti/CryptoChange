@@ -13,6 +13,10 @@ type PropsModal = {
   onRequestClose: () => void;
 };
 
+type DataCoin = {
+  item: (string | number)[];
+}
+
 /**
  * @export
  * @component
@@ -25,15 +29,26 @@ export const ModalExchange = ({
   isOpen,
   onRequestClose,
 }: PropsModal): JSX.Element => {
-  const { coinSelected, typeCurrency, dataItems, handleCreateNewTransaction, loading, handleCancelExchange, messageSuccess } = useTransactions();
+  const { coinSelected, typeCurrency, dataItems, handleCreateNewTransaction, loading, handleCancelExchange, messageSuccess,
+    valueInputQuantity, setValueInputQuantity } = useTransactions();
   const { register } = useForm();
-  const [valueInputQuantity, setValueInputQuantity] = useState(0);
+  const [active, setActive] = useState(false);
 
-  const dataItemsValue = dataItems.map((item) => item.priceChange1d);
+  const dataItemsValue = dataItems.map((item) => {
+    return [item.priceChange1d, item.id];
+  });
 
-  const sortFunction = (a: number, b: number) => {
-    return b - a;
-  };
+  const newSort = dataItems.sort((menor, maior) => maior.priceChange1d - menor.priceChange1d);
+
+  const newDataCoin = newSort.map((item) => item.id === coinSelected.id ? item : '');
+
+  const newArr = newDataCoin.map((item) => item);
+
+  const nameCoin = coinSelected.name;
+  const valueCoin = coinSelected.priceChange1d;
+  const indexCoin = newArr.indexOf(coinSelected) + 1;
+
+  const newTextData = `A moeda ${nameCoin} ocupou a ${indexCoin}º posição do ranking diário com`;
 
   // /**
   //  * @function
@@ -66,7 +81,6 @@ export const ModalExchange = ({
     ['1 Dia', coinSelected.priceChange1d],
     ['1 Semana', coinSelected.priceChange1w],
   ];
- 
 
   return (
     <div className={styles.modal}>
@@ -120,13 +134,34 @@ export const ModalExchange = ({
               </select>
             </label>
 
-            <Chart
-              chartType="Line"
-              width="100%"
-              height="400px"
-              data={data}
-              options={options}
-            />
+            {valueCoin > 0 ? (
+              <p style={{ marginBottom: 10 }}>
+                {newTextData} alta de {valueCoin}%
+              </p>
+            ) : (
+              <div style={{ marginBottom: 10, color: 'red' }}>
+                {newTextData} baixa de {valueCoin}%
+              </div>
+            )}
+
+            {active ? (
+              <>
+                <p onClick={() => setActive(!active)} className={styles.seeGraph}>
+                  Esconder gráfico
+                </p>
+                <Chart
+                  chartType="AreaChart"
+                  width="100%"
+                  height="400px"
+                  data={data}
+                  options={options}
+                />
+              </>
+            ) : (
+              <p onClick={() => setActive(!active)} className={styles.seeGraph}>
+                Ver gráfico
+              </p>
+            )}
 
             {loading ? (
               <div className={styles.formButtons}>

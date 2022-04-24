@@ -89,6 +89,16 @@ export const useTransactions = (): TransactionsContextData => {
         (transaction) => transaction.handleCancelExchange
     );
 
+    const valueInputQuantity = useContextSelector(
+        Transactions,
+        (transaction) => transaction.valueInputQuantity
+    );
+
+    const setValueInputQuantity = useContextSelector(
+        Transactions,
+        (transaction) => transaction.setValueInputQuantity
+    );
+
     return {
         typeCurrency,
         handleChangeValue,
@@ -105,5 +115,7 @@ export const useTransactions = (): TransactionsContextData => {
         handleCreateNewTransaction,
         messageSuccess,
         loading,
+        valueInputQuantity,
+        setValueInputQuantity,
     };
 };

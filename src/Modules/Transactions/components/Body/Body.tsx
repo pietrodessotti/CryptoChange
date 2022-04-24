@@ -12,14 +12,15 @@ import { useTransactions } from '../../../Provider/useTransactions';
  */
 export const Body = () => {
     const { values } = useTransactions();
+
     return (
         <>
-            {values.map((item) => (
+            {/* {values?.map((item) => (
                 <>
                     <p>{item.name}</p>
                     <p>{item.total}</p>
                 </>
-            ))}
+            ))} */}
         </>
     )
 

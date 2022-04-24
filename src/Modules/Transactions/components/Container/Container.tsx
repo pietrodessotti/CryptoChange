@@ -18,7 +18,7 @@ export const Container = () => {
         <>
             <Header />
             <Body />
-            <Footer />
+            {/* <Footer /> */}
         </>
     );
 };
