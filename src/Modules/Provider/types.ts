@@ -23,8 +23,8 @@ export type convertFinally = {
     convertAll: string[]
 }
 
-export type FiduciaryConvert = {
-    name: number;
+export type FiduciaryCoin = {
+    name: string;
     price: number | any;
 }
 
@@ -41,8 +41,8 @@ export type TransactionsContextData = {
     handleChangeValue: (e: any) => void;
     handleSearch: (event: { target: { value: React.SetStateAction<string> } }) => void;
     dataItems: Array<PropCoin>;
-    fiduciary: Array<FiduciaryConvert>;
-    newConvert: Array<FiduciaryConvert>;
+    fiduciary: Array<FiduciaryCoin>;
+    newConvert: Array<FiduciaryCoin>;
     handleCloseModal: () => void;
     handleSetCoinForSelect: (coin: any) => void;
     modalIsOpen: boolean;
@@ -51,7 +51,10 @@ export type TransactionsContextData = {
     handleCreateNewTransaction: (values: any) => void;
     messageSuccess: string;
     loading: boolean;
-    handleCancelExchange: () => void;
     valueInputQuantity: number;
     setValueInputQuantity: React.Dispatch<React.SetStateAction<number>>;
+    totalTransactions: number;
+
+    active: boolean;
+    setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }

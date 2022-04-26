@@ -13,10 +13,6 @@ type PropsModal = {
   onRequestClose: () => void;
 };
 
-type DataCoin = {
-  item: (string | number)[];
-}
-
 /**
  * @export
  * @component
@@ -29,10 +25,10 @@ export const ModalExchange = ({
   isOpen,
   onRequestClose,
 }: PropsModal): JSX.Element => {
-  const { coinSelected, typeCurrency, dataItems, handleCreateNewTransaction, loading, handleCancelExchange, messageSuccess,
-    valueInputQuantity, setValueInputQuantity } = useTransactions();
+  const { coinSelected, typeCurrency, dataItems, handleCreateNewTransaction, loading, handleCloseModal, messageSuccess,
+    valueInputQuantity, setValueInputQuantity, active, setActive } = useTransactions();
   const { register } = useForm();
-  const [active, setActive] = useState(false);
+  const [activeTab, setActiveTab] = useState('buy');
 
   const dataItemsValue = dataItems.map((item) => {
     return [item.priceChange1d, item.id];
@@ -82,6 +78,14 @@ export const ModalExchange = ({
     ['1 Semana', coinSelected.priceChange1w],
   ];
 
+  const handleChangeTabBuy = () => {
+    setActiveTab('buy');
+  }
+
+  const handleChangeTabSell = () => {
+    setActiveTab('sell');
+  }
+
   return (
     <div className={styles.modal}>
       <Modal
@@ -91,94 +95,197 @@ export const ModalExchange = ({
         className="react-modal-content"
         ariaHideApp={false}
       >
-        <form onSubmit={handleCreateNewTransaction}>
+        {/* <div className={styles.controllerTabModal}>
+          <p onClick={handleChangeTabBuy}>
+            Comprar
+          </p>
+          <p onClick={handleChangeTabSell}>
+            Vender
+          </p>
+        </div> */}
+
+        {activeTab === 'buy' ? (
           <div>
-            <label htmlFor='quantityOfCoins' className={styles.label}>
-              Criptomoeda:
-              <select
-                className={styles.selectCoin}
-                {...register('nameCrypto')}
-                disabled>
-                <option value={coinSelected.name}>
-                  {coinSelected.name}
-                </option>
-              </select>
-            </label>
+            <form onSubmit={handleCreateNewTransaction}>
+              <div>
+                <label htmlFor='quantityOfCoins' className={styles.label}>
+                  Criptomoeda:
+                  <select
+                    className={styles.selectCoin}
+                    {...register('nameCrypto')}
+                    disabled>
+                    <option value={coinSelected.name}>
+                      {coinSelected.name}
+                    </option>
+                  </select>
+                </label>
 
-            <label htmlFor='quantityOfCoins' className={styles.label}>
-              Quantidade de moedas:
-              <input
-                placeholder="Quantidade de moedas"
-                min={0.00001}
-                step={0.00001}
-                className={styles.inputValue}
-                type="number"
-                {...register('quantity')}
-                onChange={(e => setValueInputQuantity(Number(e.target.value)))}
-                value={valueInputQuantity}
-                required
-              />
-            </label>
+                <label htmlFor='quantityOfCoins' className={styles.label}>
+                  Quantidade de moedas:
+                  <input
+                    placeholder="Quantidade de moedas"
+                    min={0.00001}
+                    step={0.00001}
+                    className={styles.inputValue}
+                    type="number"
+                    {...register('quantity')}
+                    onChange={(e) => setValueInputQuantity(Number(e.target.value))}
+                    value={valueInputQuantity}
+                    required
+                  />
+                </label>
 
-            <label htmlFor='quantityOfCoins' className={styles.label}>
-              Valor total da transação:
-              <select
-                className={styles.totalWithSelect}
-                {...register('referencePrice')}
-                disabled>
-                <option value={coinSelected.price * valueInputQuantity || 0}>
-                  {new Intl.NumberFormat('pt-BR', {
-                    style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
-                  }).format(coinSelected.price * valueInputQuantity || 0)}
-                </option>
-              </select>
-            </label>
+                <label htmlFor='quantityOfCoins' className={styles.label}>
+                  Valor total da transação:
+                  <select
+                    className={styles.totalWithSelect}
+                    {...register('referencePrice')}
+                    disabled>
+                    <option value={coinSelected.price * valueInputQuantity || 0}>
+                      {new Intl.NumberFormat('pt-BR', {
+                        style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
+                      }).format(coinSelected.price * valueInputQuantity || 0)}
+                    </option>
+                  </select>
+                </label>
 
-            {valueCoin > 0 ? (
-              <p style={{ marginBottom: 10 }}>
-                {newTextData} alta de {valueCoin}%
-              </p>
-            ) : (
-              <div style={{ marginBottom: 10, color: 'red' }}>
-                {newTextData} baixa de {valueCoin}%
+                {valueCoin > 0 ? (
+                  <p style={{ marginBottom: 10 }}>
+                    {newTextData} alta de {valueCoin}%
+                  </p>
+                ) : (
+                  <div style={{ marginBottom: 10, color: 'red' }}>
+                    {newTextData} baixa de {valueCoin}%
+                  </div>
+                )}
+
+                {!active ? (
+                  <p onClick={() => setActive(!active)} className={styles.seeGraph}>
+                    Ver gráfico
+                  </p>
+                ) : (
+                  <>
+                    <p onClick={() => setActive(!active)} className={styles.seeGraph}>
+                      Esconder gráfico
+                    </p>
+                    <Chart
+                      chartType="AreaChart"
+                      width="100%"
+                      height="400px"
+                      data={data}
+                      options={options}
+                    />
+                  </>
+                )}
+
+                {loading ? (
+                  <div className={styles.formButtons}>
+                    <p className={styles.messageSuccess}>{messageSuccess}</p>
+                  </div>
+                ) : (
+                  <div className={styles.formButtons}>
+                    <button onClick={handleCloseModal} className={styles.cancelButton}>
+                      Cancelar
+                    </button>
+                    <button type="submit" className={styles.submitButton}>
+                      Comprar
+                    </button>
+                  </div>
+                )}
               </div>
-            )}
-
-            {active ? (
-              <>
-                <p onClick={() => setActive(!active)} className={styles.seeGraph}>
-                  Esconder gráfico
-                </p>
-                <Chart
-                  chartType="AreaChart"
-                  width="100%"
-                  height="400px"
-                  data={data}
-                  options={options}
-                />
-              </>
-            ) : (
-              <p onClick={() => setActive(!active)} className={styles.seeGraph}>
-                Ver gráfico
-              </p>
-            )}
-
-            {loading ? (
-              <div className={styles.formButtons}>
-                <p className={styles.messageSuccess}>{messageSuccess}</p>
-              </div>
-            ) : (
-              <div className={styles.formButtons}>
-                <button onClick={handleCancelExchange} className={styles.cancelButton}>
-                  Cancelar
-                </button>
-                <button type="submit" className={styles.submitButton}>
-                  Comprar
-                </button>
-              </div>
-            )}
+            </form>
           </div>
-        </form>
+        ) : (
+          <div>
+            <form onSubmit={handleCreateNewTransaction}>
+              <div>
+                <label htmlFor='quantityOfCoins' className={styles.label}>
+                  Criptomoeda:
+                  <select
+                    className={styles.selectCoin}
+                    {...register('nameCrypto')}
+                    disabled>
+                    <option value={coinSelected.name}>
+                      {coinSelected.name}
+                    </option>
+                  </select>
+                </label>
+
+                <label htmlFor='quantityOfCoins' className={styles.label}>
+                  Quantidade de moedas:
+                  <input
+                    placeholder="Quantidade de moedas"
+                    className={styles.totalWithSelect}
+                    type="number"
+                    {...register('quantity')}
+                    onChange={(e) => setValueInputQuantity(Number(e.target.value))}
+                    value={-valueInputQuantity / coinSelected.price}
+                    disabled
+                  />
+                </label>
+
+                <label htmlFor='quantityOfCoins' className={styles.label}>
+                  Valor total da transação:
+                  <input
+                    placeholder="Quantidade de moedas"
+                    className={styles.inputValue}
+                    type="number"
+                    {...register('referencePrice')}
+                    onChange={(e) => setValueInputQuantity(Number(e.target.value))}
+                    value={valueInputQuantity}
+                    required
+                  />
+                </label>
+
+                {valueCoin > 0 ? (
+                  <p style={{ marginBottom: 10 }}>
+                    {newTextData} alta de {valueCoin}%
+                  </p>
+                ) : (
+                  <div style={{ marginBottom: 10, color: 'red' }}>
+                    {newTextData} baixa de {valueCoin}%
+                  </div>
+                )}
+
+                {!active ? (
+                  <p onClick={() => setActive(!active)} className={styles.seeGraph}>
+                    Ver gráfico
+                  </p>
+                ) : (
+                  <>
+                    <p onClick={() => setActive(!active)} className={styles.seeGraph}>
+                      Esconder gráfico
+                    </p>
+                    <Chart
+                      chartType="AreaChart"
+                      width="100%"
+                      height="400px"
+                      data={data}
+                      options={options}
+                    />
+                  </>
+                )}
+
+                {loading ? (
+                  <div className={styles.formButtons}>
+                    <p className={styles.messageSuccess}>{messageSuccess}</p>
+                  </div>
+                ) : (
+                  <div className={styles.formButtons}>
+                    <button onClick={handleCloseModal} className={styles.cancelButton}>
+                      Cancelar
+                    </button>
+                    <button type="submit" className={styles.submitButton}>
+                      Vender
+                    </button>
+                  </div>
+                )}
+              </div>
+            </form>
+          </div>
+        )}
+
+
       </Modal>
     </div>
   );

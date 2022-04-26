@@ -1,9 +1,9 @@
 import React from 'react';
-import { useTransactions } from '../../../Provider/useTransactions';
 
+import { useTransactions } from '../../../Provider/useTransactions';
 import Body from '../Body';
 import Footer from '../../../../components/Footer';
-import Header from '../Header';
+import Header from '../../../../components/Header';
 import ModalExchange from '../ModalExchange';
 
 /**
@@ -15,11 +15,13 @@ import ModalExchange from '../ModalExchange';
  * Esse componente irá carregar os dados de Header e Body
  */
 export const Container = (): JSX.Element => {
-  const { handleSetCoinForSelect, handleCloseModal, modalIsOpen } = useTransactions();
+  const { handleSetCoinForSelect, handleCloseModal, modalIsOpen, typeCurrency, newConvert, handleChangeValue, totalTransactions } = useTransactions();
 
   return (
     <>
-      <Header />
+      <Header typeCurrency={typeCurrency} arrTypeCurrency={newConvert}
+        handleChangeValue={handleChangeValue} totalTransactions={totalTransactions}
+      />
       <Body
         onOpenNewTransactionModal={handleSetCoinForSelect}
       />

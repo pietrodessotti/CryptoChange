@@ -1,11 +1,20 @@
 import React from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 
 import styles from './styles.module.scss';
-import { useTransactions } from '../../../Provider/useTransactions';
-import Link from 'next/link';
-import TransactionsPage from '../../../Transactions';
 
+type FiduciaryCoin = {
+  name: string;
+  price: number | string;
+}
+
+type Props = {
+  typeCurrency: string;
+  handleChangeValue: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  arrTypeCurrency: Array<FiduciaryCoin>;
+  totalTransactions: number;
+}
 
 /**
  * @export
@@ -15,15 +24,7 @@ import TransactionsPage from '../../../Transactions';
  * @description
  * Componente responsável por montar o Header da aplicação.
  */
-export const Header = () => {
-  const { typeCurrency, newConvert, handleChangeValue, values } = useTransactions();
-
-  const newMapTransactions = values.map((item) => item.total);
-
-  const totalTransactions = newMapTransactions.reduce((totalArr: number, itemArr: number) => {
-    const newTotal = totalArr + itemArr;
-    return newTotal;
-  }, 0);
+export const Header = ({ typeCurrency, arrTypeCurrency, totalTransactions, handleChangeValue}: Props) => {
 
   return (
     <header className={styles.headerContainer}>
@@ -39,20 +40,20 @@ export const Header = () => {
           <Link href="/">Home</Link>
           <Link href="/">Exchenge</Link>
         </nav>
-        <>
+        <div>
           <div className={styles.headerCurrency}>
             <p>{`${new Intl.NumberFormat('pt-BR', {
               style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
-            }).format(totalTransactions)
+            }).format(totalTransactions || 0)
               }`}</p>
           </div>
 
           <select value={typeCurrency} onChange={handleChangeValue}>
-            {newConvert?.map((comercialCoin) => (
+            {arrTypeCurrency?.map((comercialCoin) => (
                 <option key={comercialCoin.name}>{comercialCoin.name}</option>
             ))}
           </select>
-        </>
+        </div>
       </div>
     </header>
   );

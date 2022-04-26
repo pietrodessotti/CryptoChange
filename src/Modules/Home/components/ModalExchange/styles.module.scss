@@ -1,3 +1,27 @@
+.controllerTabModal {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    p {
+        padding: 0 0.5rem;
+        border-radius: 0.25rem;
+        font-size: 1rem;
+        font-weight: bold;
+        border-bottom: 1px solid;
+        cursor: pointer;
+
+        &.active {
+            background-color: gray;
+            border-bottom: 1px solid;
+        }
+    }
+}
+
+
 .selectCoin,
 .inputValue,
 .totalWithSelect {

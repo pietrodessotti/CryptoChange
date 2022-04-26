@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -8,8 +8,21 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import styles from './styles.module.scss';
 import { useTransactions } from '../../../Provider/useTransactions';
 
+export type PropCoin = {
+  id: string;
+  name: string;
+  price: number;
+  priceChange1d: number;
+  priceChange1h: number;
+  priceChange1w: number;
+  symbol: string;
+  icon: string;
+  websiteUrl: string;
+};
+
+
 type Props = {
-  onOpenNewTransactionModal: (coin: any) => void;
+  onOpenNewTransactionModal: (coin: PropCoin) => void;
 };
 
 /**
@@ -110,7 +123,7 @@ export const Body = ({
         )}
 
       </div>
-      <div>
+      {/* <div>
         {values.map((item) => (
           <>
             <p>{item.name}</p>
@@ -120,7 +133,7 @@ export const Body = ({
             <p>{item.total}</p>
           </>
         ))}
-      </div>
+      </div> */}
     </>
   );
 };

@@ -1,8 +1,9 @@
 import React from 'react';
 
 import Footer from '../../../../components/Footer';
+import Header from '../../../../components/Header';
+import { useTransactions } from '../../../Provider/useTransactions';
 import Body from '../Body';
-import Header from '../Header';
 
 /**
  * @export
@@ -14,11 +15,15 @@ import Header from '../Header';
  * montagem da tela de transações.
  */
 export const Container = () => {
+    const { typeCurrency, newConvert, handleChangeValue, totalTransactions } = useTransactions();
+
     return (
         <>
-            <Header />
+            <Header typeCurrency={typeCurrency} arrTypeCurrency={newConvert}
+                handleChangeValue={handleChangeValue} totalTransactions={totalTransactions}
+            />
             <Body />
-            {/* <Footer /> */}
+            <Footer />
         </>
     );
 };

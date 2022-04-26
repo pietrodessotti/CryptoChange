@@ -84,11 +84,6 @@ export const useTransactions = (): TransactionsContextData => {
         (transaction) => transaction.loading
     );
 
-    const handleCancelExchange = useContextSelector(
-        Transactions,
-        (transaction) => transaction.handleCancelExchange
-    );
-
     const valueInputQuantity = useContextSelector(
         Transactions,
         (transaction) => transaction.valueInputQuantity
@@ -97,6 +92,21 @@ export const useTransactions = (): TransactionsContextData => {
     const setValueInputQuantity = useContextSelector(
         Transactions,
         (transaction) => transaction.setValueInputQuantity
+    );
+
+    const totalTransactions = useContextSelector(
+        Transactions,
+        (transaction) => transaction.totalTransactions
+    );
+
+    const active = useContextSelector(
+        Transactions,
+        (transaction) => transaction.active
+    );
+
+    const setActive = useContextSelector(
+        Transactions,
+        (transaction) => transaction.setActive
     );
 
     return {
@@ -108,7 +118,6 @@ export const useTransactions = (): TransactionsContextData => {
         dataItems,
         handleSetCoinForSelect,
         handleCloseModal,
-        handleCancelExchange,
         modalIsOpen,
         coinSelected,
         values,
@@ -117,5 +126,8 @@ export const useTransactions = (): TransactionsContextData => {
         loading,
         valueInputQuantity,
         setValueInputQuantity,
+        totalTransactions,
+        active,
+        setActive,
     };
 };
