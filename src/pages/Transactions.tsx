@@ -37,9 +37,10 @@ type Props = {
  * Esse componente irá carregar os dados da página
  * de transações com SSR.
  */
-export default function Transactions({ coin, fiduciary }: Props): JSX.Element {
+export default function Transactions(): JSX.Element {
   return (
-      <TransactionsPage  coin={coin} fiduciary={fiduciary} />
+    <div>Transactions</div> 
+    // <TransactionsPage coin={coin} fiduciary={fiduciary} />
   )
 }
 
