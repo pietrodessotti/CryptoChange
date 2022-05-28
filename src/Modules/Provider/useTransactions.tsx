@@ -63,7 +63,7 @@ export const useTransactions = (): TransactionsContextData => {
         Transactions,
         (transaction) => transaction.coinSelected
     );
-
+    
     const values = useContextSelector(
         Transactions,
         (transaction) => transaction.values
@@ -72,6 +72,46 @@ export const useTransactions = (): TransactionsContextData => {
     const handleCreateNewTransaction = useContextSelector(
         Transactions,
         (transaction) => transaction.handleCreateNewTransaction
+    );
+
+    const messageSuccess = useContextSelector(
+        Transactions,
+        (transaction) => transaction.messageSuccess
+    );
+
+    const loading = useContextSelector(
+        Transactions,
+        (transaction) => transaction.loading
+    );
+
+    const valueInputQuantity = useContextSelector(
+        Transactions,
+        (transaction) => transaction.valueInputQuantity
+    );
+
+    const setValueInputQuantity = useContextSelector(
+        Transactions,
+        (transaction) => transaction.setValueInputQuantity
+    );
+
+    const updatedValue = useContextSelector(
+        Transactions,
+        (transaction) => transaction.updatedValue
+    );
+
+    const active = useContextSelector(
+        Transactions,
+        (transaction) => transaction.active
+    );
+
+    const setActive = useContextSelector(
+        Transactions,
+        (transaction) => transaction.setActive
+    );
+
+    const handleConvertTransactions = useContextSelector(
+        Transactions,
+        (transaction) => transaction.handleConvertTransactions
     );
 
     return {
@@ -87,5 +127,13 @@ export const useTransactions = (): TransactionsContextData => {
         coinSelected,
         values,
         handleCreateNewTransaction,
+        messageSuccess,
+        loading,
+        valueInputQuantity,
+        setValueInputQuantity,
+        updatedValue,
+        active,
+        setActive,
+        handleConvertTransactions,
     };
 };

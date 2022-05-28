@@ -29,6 +29,25 @@
     }
 }
 
+
+
+.messageSuccess {
+    position: absolute;
+    top: 35px;
+    right: 300px;
+    color: #f1f0f0;;
+    font-size: 1rem;
+    margin: -10px auto 10px;
+    text-align: center;
+    font-weight: bold;
+    width: 250px;
+    
+    border: 1px solid #f1f0f0;;
+    border-radius: 5px;
+    padding: 0.35rem;
+    background-color: rgb(96, 194, 57);
+}
+
 .container {
     position: relative;
     margin: auto;
@@ -54,6 +73,7 @@
 
         border-spacing: 0px 2px;
 
+        
         tr:nth-child(even) {
             background: #fcfcfc;
         }
@@ -61,6 +81,10 @@
             background: #f1f0f0;
         }
     }
+}
+
+.lineHeaderTable {
+    background-color: white !important;
 }
 
 .tableHeaderContainer {
@@ -137,4 +161,10 @@
     &:hover {
         color: #03bd31;
     }
+}
+
+.skeletonLine {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
