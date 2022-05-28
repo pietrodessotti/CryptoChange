@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
 import styles from './styles.module.scss';
 import { useTransactions } from '../../../Provider/useTransactions';
+import { ConvertReturnAPI } from '../../../Provider/types';
 
 export type PropCoin = {
   id: string;
@@ -37,11 +38,10 @@ type Props = {
 export const Body = ({
   onOpenNewTransactionModal,
 }: Props) => {
-  const { handleSearch, dataItems, typeCurrency, values } = useTransactions();
+  const { handleSearch, dataItems, typeCurrency, } = useTransactions();
 
   return (
     <>
-
       <div className={styles.container}>
         <div className={styles.containerTitleTable}>
           <div className={styles.imageLogo}>
@@ -81,8 +81,8 @@ export const Body = ({
           </thead>
           <tbody>
 
-
             {dataItems.map((unityCoin) => (
+              
               <tr className={styles.tableBodyContainer} key={unityCoin.id}>
                 <td className={styles.nameRow}>{unityCoin.name}</td>
                 <td className={styles.columnSymbol}>
@@ -121,19 +121,7 @@ export const Body = ({
             </a>
           </p>
         )}
-
       </div>
-      {/* <div>
-        {values.map((item) => (
-          <>
-            <p>{item.name}</p>
-            <p>{item.quantity}</p>
-            <p>{item.id}</p>
-            <p>{item.fiduciary === '' ? 'BRL' : item.fiduciary}</p>
-            <p>{item.total}</p>
-          </>
-        ))}
-      </div> */}
     </>
   );
 };

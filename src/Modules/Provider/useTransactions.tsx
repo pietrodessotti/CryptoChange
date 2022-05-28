@@ -94,9 +94,9 @@ export const useTransactions = (): TransactionsContextData => {
         (transaction) => transaction.setValueInputQuantity
     );
 
-    const totalTransactions = useContextSelector(
+    const updatedValue = useContextSelector(
         Transactions,
-        (transaction) => transaction.totalTransactions
+        (transaction) => transaction.updatedValue
     );
 
     const active = useContextSelector(
@@ -107,6 +107,11 @@ export const useTransactions = (): TransactionsContextData => {
     const setActive = useContextSelector(
         Transactions,
         (transaction) => transaction.setActive
+    );
+
+    const handleConvertTransactions = useContextSelector(
+        Transactions,
+        (transaction) => transaction.handleConvertTransactions
     );
 
     return {
@@ -126,8 +131,9 @@ export const useTransactions = (): TransactionsContextData => {
         loading,
         valueInputQuantity,
         setValueInputQuantity,
-        totalTransactions,
+        updatedValue,
         active,
         setActive,
+        handleConvertTransactions,
     };
 };

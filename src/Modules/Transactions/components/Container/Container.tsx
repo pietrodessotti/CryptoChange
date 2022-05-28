@@ -15,12 +15,12 @@ import Body from '../Body';
  * montagem da tela de transações.
  */
 export const Container = () => {
-    const { typeCurrency, newConvert, handleChangeValue, totalTransactions } = useTransactions();
+    const { typeCurrency, newConvert, handleChangeValue, updatedValue } = useTransactions();
 
     return (
         <>
             <Header typeCurrency={typeCurrency} arrTypeCurrency={newConvert}
-                handleChangeValue={handleChangeValue} totalTransactions={totalTransactions}
+                handleChangeValue={handleChangeValue} totalTransactions={updatedValue}
             />
             <Body />
             <Footer />

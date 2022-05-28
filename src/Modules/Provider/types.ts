@@ -28,6 +28,12 @@ export type FiduciaryCoin = {
     price: number | any;
 }
 
+export type ConvertReturnAPI = {
+    name: string;
+    quantity: number;
+    price?: number | any;
+}
+
 export type ValuesType = {
     id: string,
     name: string,
@@ -53,8 +59,9 @@ export type TransactionsContextData = {
     loading: boolean;
     valueInputQuantity: number;
     setValueInputQuantity: React.Dispatch<React.SetStateAction<number>>;
-    totalTransactions: number;
+    updatedValue: number;
 
     active: boolean;
     setActive: React.Dispatch<React.SetStateAction<boolean>>;
+    handleConvertTransactions: ConvertReturnAPI[];
 }

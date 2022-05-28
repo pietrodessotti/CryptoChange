@@ -25,7 +25,6 @@ type Props = {
  * Componente responsável por montar o Header da aplicação.
  */
 export const Header = ({ typeCurrency, arrTypeCurrency, totalTransactions, handleChangeValue}: Props) => {
-
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
@@ -38,13 +37,13 @@ export const Header = ({ typeCurrency, arrTypeCurrency, totalTransactions, handl
         <Link href="/">CryptoChange</Link>
         <nav>
           <Link href="/">Home</Link>
-          <Link href="/">Exchenge</Link>
+          <Link href="/Transactions">Exchenge</Link>
         </nav>
         <div>
           <div className={styles.headerCurrency}>
             <p>{`${new Intl.NumberFormat('pt-BR', {
               style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
-            }).format(totalTransactions || 0)
+            }).format(totalTransactions)
               }`}</p>
           </div>
 

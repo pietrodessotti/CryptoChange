@@ -5,6 +5,7 @@ import Body from '../Body';
 import Footer from '../../../../components/Footer';
 import Header from '../../../../components/Header';
 import ModalExchange from '../ModalExchange';
+import { ConvertReturnAPI } from '../../../Provider/types';
 
 /**
  * @export
@@ -15,12 +16,12 @@ import ModalExchange from '../ModalExchange';
  * Esse componente irá carregar os dados de Header e Body
  */
 export const Container = (): JSX.Element => {
-  const { handleSetCoinForSelect, handleCloseModal, modalIsOpen, typeCurrency, newConvert, handleChangeValue, totalTransactions } = useTransactions();
+  const { handleSetCoinForSelect, handleCloseModal, modalIsOpen, typeCurrency, newConvert, handleChangeValue, updatedValue } = useTransactions();
 
   return (
     <>
       <Header typeCurrency={typeCurrency} arrTypeCurrency={newConvert}
-        handleChangeValue={handleChangeValue} totalTransactions={totalTransactions}
+        handleChangeValue={handleChangeValue} totalTransactions={updatedValue}
       />
       <Body
         onOpenNewTransactionModal={handleSetCoinForSelect}

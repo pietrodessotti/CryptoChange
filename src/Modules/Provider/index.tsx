@@ -2,7 +2,7 @@ import React, { FormEvent, ReactNode, SetStateAction, useEffect, useState } from
 import { createContext } from 'use-context-selector';
 import { api, apiLocal } from '../../services/api';
 
-import { PropCoin, TransactionsContextData, FiduciaryCoin } from './types';
+import { PropCoin, TransactionsContextData, FiduciaryCoin, ConvertReturnAPI } from './types';
 
 export const Transactions = createContext(
   {} as TransactionsContextData
@@ -11,6 +11,7 @@ export const Transactions = createContext(
 type Data = {
   id: string,
   name: string,
+  date: string,
   quantity: number,
   total: number,
   fiduciary: string,
@@ -44,8 +45,8 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
   const [valueInputQuantity, setValueInputQuantity] = useState(0);
   
   const [active, setActive] = useState(false);
+  const newValues: Array<ConvertReturnAPI> = []
 
-  console.log(valueInputQuantity);
   useEffect(() => {
     if (typeCurrency) {
       const fetchData = async () => {
@@ -63,21 +64,22 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
    * @name handleChangeValue
    * 
    * @description
-   * Responsável por setar o valor a moeda selecionada
+   * Responsible for indicate the value of selected coin.
    */
   const handleChangeValue = (event: { target: { value: React.SetStateAction<string>; } }) => {
     setTypeCurrency(event.target.value)
   };
+
 
   /**
    * @function
    * @name handleSearch
    * 
    * @description
-   * Responsável por pegar o valor digitado
+   * Responsible for do search in the list of coins.
    */
   const handleSearch = (event: { target: { value: React.SetStateAction<string> } }) => {
-    setSearch(event.target.value)
+    setSearch(event.target.value.toString().toLowerCase());
   }
 
   /**
@@ -85,19 +87,18 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
    * @name dataItems
    * 
    * @description
-   * Responsável por filtrar o valor digitado
+   * Responsible for filter the list of coins.
    */
   const dataItems = data === undefined ?
-    firstCoins.filter((item: any) => item.name.includes(search)) :
-    data.filter((item: any) => item.name.includes(search))
+    firstCoins.filter((item: any) => item.name.toLowerCase().includes(search)):
+    data.filter((item: any) => item.name.toLowerCase().includes(search))
 
   /**
    * @function
    * @name convertAll
    * 
    * @description
-   * Responsável por converter a API de moedas
-   * fiduciarias.
+   * Responsible for convert all the list of coins.
    */
   const newConvert = Object.keys(fiduciary).map((item: any) => {
     return {
@@ -111,8 +112,8 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
    * @name handleSetCoinForSelect
    * 
    * @description
-   * Responsável por setar o valor selecionado 
-   * na lista de moedas e abrir o modal. 
+   * Responsible for indicate the coin selected and
+   * open the modal.
    */
   const handleSetCoinForSelect = (coin: Array<PropCoin>) => {
     setCoinSelected(coin);
@@ -124,8 +125,8 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
    * @name handleCloseModal
    *
    * @description
-   * Função responsável por fechar o modal de
-   * compra ao clicar em comprar.
+   * This function is responsible for close
+   * and clear modal.
    */
   const handleCloseModal = () => {
     setModalIsOpen(false);
@@ -138,8 +139,9 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
    * @name handleSubmit
    * 
    * @description
-   * Responsável por enviar os dados do formulário
-   * para o componente de compra.
+   * This function is responsible for submit data,
+   * call message of success and call function
+   * of close modal.
    */
   const handleCreateNewTransaction = (event: FormEvent) => {
     const { nameCrypto, quantity, referencePrice } = event.currentTarget as HTMLFormElement;
@@ -148,12 +150,13 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
     setValues([...values, {
       id: nameCrypto.value,
       name: nameCrypto.value,
+      date: `${new Date().toLocaleDateString()} ás ${new Date().toLocaleTimeString()}`,
       quantity: parseFloat(quantity.value),
       total: parseFloat(referencePrice.value),
       fiduciary: typeCurrency,
     }])
 
-    setMessageSuccess(`${nameCrypto.value} adicionado com sucesso!`);
+    setMessageSuccess(`${nameCrypto.value}  adicionado com sucesso!`);
     setLoading(true);
     setActive(false);
     setValueInputQuantity(0);
@@ -163,29 +166,65 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
       setLoading(false);
     }, 1500);
   };
-  console.log(values);
-
-  /**
-   * @function
-   * @name newMapTransactions
-   * 
-   * @description
-   * Responsável por mapear os dados da lista
-   * de transações.
-   */
-  const newMapTransactions = values.map((item) => item.total);
 
   /**
    * @function
    * @name TotalTransactions 
    * 
    * @description
-   * Responsável por calcular o valor total das transações.
+   * Responsible for do a object keys of transactions suming
+   * the quantity of each coin buy
    */
-  const totalTransactions = newMapTransactions.reduce((totalArr: number, itemArr: number) => {
-    const newTotal = totalArr + itemArr;
-    return newTotal;
-  }, 0);
+  const totalTransactions = values.reduce((totalArr: any, itemArr) => {
+    totalArr[itemArr.name] = (totalArr[itemArr.name] || 0) + itemArr.quantity;
+    return totalArr;
+  }, []);
+
+  /** 
+   * @function
+   * @name handleConvertTransactions
+   * 
+   * @description
+   * Responsible for convert transactions in a new array
+   */
+  const handleConvertTransactions = Object.keys(totalTransactions).map((item: any) => {
+    return {
+      name: item,
+      quantity: totalTransactions[item],
+    }
+  });
+
+  dataItems.map((unityCoin) => (
+    handleConvertTransactions.map((transactionItem) => transactionItem.name === unityCoin.name && (
+      newValues.push({
+        name: transactionItem.name,
+        quantity: transactionItem.quantity,
+        price: unityCoin.price,
+      })
+    ))
+  ))
+
+  /**
+   * @function
+   * @name calculateAllTransactions
+   * 
+   * @description
+   * Responsible for multiply the quantity of each coin buy
+   * for your price.
+   */
+  const calculateAllTransactions = newValues.sort((a, b) => a.name.localeCompare(b.name)).map((item) => {
+    const calculate = item.quantity * item.price 
+    return calculate;    
+  })
+
+  /**
+   * @function
+   * @name updatedFinalValue
+   * 
+   * @description
+   * This function is responsible for sum all transactions.
+   */
+  const updatedValue = calculateAllTransactions.reduce((total, item) => total + item, 0)
 
   return (
     <>
@@ -206,9 +245,10 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
         loading,
         valueInputQuantity,
         setValueInputQuantity,
-        totalTransactions,
+        updatedValue,
         active,
         setActive,
+        handleConvertTransactions,
       }}>
         {children}
       </Transactions.Provider>

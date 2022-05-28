@@ -2,7 +2,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 const values = [{
-    nameCrypto: 'Pietr',
+    nameCrypto: 'Pietro',
     quantity: 10,
     referencePrice: 25,
 }];
