@@ -99,16 +99,6 @@ export const useTransactions = (): TransactionsContextData => {
         (transaction) => transaction.updatedValue
     );
 
-    const active = useContextSelector(
-        Transactions,
-        (transaction) => transaction.active
-    );
-
-    const setActive = useContextSelector(
-        Transactions,
-        (transaction) => transaction.setActive
-    );
-
     const handleConvertTransactions = useContextSelector(
         Transactions,
         (transaction) => transaction.handleConvertTransactions
@@ -132,8 +122,6 @@ export const useTransactions = (): TransactionsContextData => {
         valueInputQuantity,
         setValueInputQuantity,
         updatedValue,
-        active,
-        setActive,
         handleConvertTransactions,
     };
 };

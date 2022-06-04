@@ -61,7 +61,5 @@ export type TransactionsContextData = {
     setValueInputQuantity: React.Dispatch<React.SetStateAction<number>>;
     updatedValue: number;
 
-    active: boolean;
-    setActive: React.Dispatch<React.SetStateAction<boolean>>;
     handleConvertTransactions: ConvertReturnAPI[];
 }

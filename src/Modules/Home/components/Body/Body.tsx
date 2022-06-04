@@ -6,8 +6,8 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
 import styles from './styles.module.scss';
-import { useTransactions } from '../../../Provider/useTransactions';
-import { ConvertReturnAPI } from '../../../Provider/types';
+import { useTransactions } from '@Provider/useTransactions';
+import { ConvertReturnAPI } from '@Provider/types';
 
 export type PropCoin = {
   id: string;
@@ -20,7 +20,6 @@ export type PropCoin = {
   icon: string;
   websiteUrl: string;
 };
-
 
 type Props = {
   onOpenNewTransactionModal: (coin: PropCoin) => void;

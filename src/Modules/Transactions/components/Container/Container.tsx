@@ -1,8 +1,9 @@
 import React from 'react';
 
-import Footer from '../../../../components/Footer';
-import Header from '../../../../components/Header';
-import { useTransactions } from '../../../Provider/useTransactions';
+import { useTransactions } from '@Provider/useTransactions';
+import Footer from '@components/Footer';
+import Header from '@components/Header';
+
 import Body from '../Body';
 
 /**

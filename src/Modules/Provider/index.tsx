@@ -1,6 +1,7 @@
 import React, { FormEvent, ReactNode, SetStateAction, useEffect, useState } from 'react';
 import { createContext } from 'use-context-selector';
-import { api, apiLocal } from '../../services/api';
+
+import { api } from '@services/api';
 
 import { PropCoin, TransactionsContextData, FiduciaryCoin, ConvertReturnAPI } from './types';
 
@@ -16,7 +17,6 @@ type Data = {
   total: number,
   fiduciary: string,
 };
-
 
 type TransactionsProviderProps = {
   children: ReactNode;
@@ -44,7 +44,6 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
   const [loading, setLoading] = useState(false);
   const [valueInputQuantity, setValueInputQuantity] = useState(0);
   
-  const [active, setActive] = useState(false);
   const newValues: Array<ConvertReturnAPI> = []
 
   useEffect(() => {
@@ -131,7 +130,6 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
   const handleCloseModal = () => {
     setModalIsOpen(false);
     setLoading(false);
-    setActive(false);
   };
 
   /**
@@ -158,7 +156,6 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
 
     setMessageSuccess(`${nameCrypto.value}  adicionado com sucesso!`);
     setLoading(true);
-    setActive(false);
     setValueInputQuantity(0);
 
     setTimeout(() => {
@@ -226,6 +223,7 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
    */
   const updatedValue = calculateAllTransactions.reduce((total, item) => total + item, 0)
 
+
   return (
     <>
       <Transactions.Provider value={{
@@ -246,8 +244,6 @@ export const TransactionsProvider = ({ children, firstCoins, fiduciary }: Transa
         valueInputQuantity,
         setValueInputQuantity,
         updatedValue,
-        active,
-        setActive,
         handleConvertTransactions,
       }}>
         {children}

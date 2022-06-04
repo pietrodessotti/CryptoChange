@@ -1,9 +1,8 @@
 import { GetServerSideProps } from 'next';
-import Home from '../Modules/Home';
 
-import { TransactionsProvider } from "../Modules/Provider"
-import TransactionsPage from "../Modules/Transactions"
-import { api, comercialCoin } from '../services/api';
+import { TransactionsProvider } from "@Provider/index";
+import TransactionsPage from "@Transactions/index";
+import { api, comercialCoin } from '@services/api';
 
 type Coin = {
   id: string;
@@ -67,25 +66,3 @@ export const getServerSideProps: GetServerSideProps = async () => {
     }
   };
 };
-
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   const dataCurrency = api
-//     .get(`coins?currency=BRL`)
-//     .then((response) => response.data.coins);
-
-//   // Fetch data from external API
-//   const typeCurrency = comercialCoin
-//     .get(
-//       `https://v6.exchangerate-api.com/v6/c87de6b059e6791749e979f7/latest/BRL`
-//     )
-//     .then((response) => response.data.conversion_rates);
-
-
-//   // Pass data to the page via props
-//   return {
-//     props: {
-//       coin: await dataCurrency,
-//       fiduciary: await typeCurrency,
-//     }
-//   };
-// };

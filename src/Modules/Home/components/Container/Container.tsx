@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { useTransactions } from '../../../Provider/useTransactions';
+import { useTransactions } from '@Provider/useTransactions';
+import Footer from '@components/Footer';
+import Header from '@components/Header';
+
 import Body from '../Body';
-import Footer from '../../../../components/Footer';
-import Header from '../../../../components/Header';
 import ModalExchange from '../ModalExchange';
-import { ConvertReturnAPI } from '../../../Provider/types';
 
 /**
  * @export
