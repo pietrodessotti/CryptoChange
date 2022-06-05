@@ -49,7 +49,7 @@ export const TransactionsProvider = ({
 }: TransactionsProviderProps): JSX.Element => {
   const [typeCurrency, setTypeCurrency] = useState('');
   const [coinSelected, setCoinSelected] = useState<SetStateAction<PropCoin[]>>(
-    []
+    [],
   );
   const [search, setSearch] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -66,7 +66,7 @@ export const TransactionsProvider = ({
       const fetchData = async () => {
         const response = await api
           .get(`coins?currency=${typeCurrency}`)
-          .then((response) => response.data.coins);
+          .then(response => response.data.coins);
         setData(response);
       };
       fetchData();
@@ -109,7 +109,7 @@ export const TransactionsProvider = ({
   const dataItems =
     data === undefined
       ? firstCoins.filter((item: any) =>
-          item.name.toLowerCase().includes(search)
+          item.name.toLowerCase().includes(search),
         )
       : data.filter((item: any) => item.name.toLowerCase().includes(search));
 
@@ -215,19 +215,19 @@ export const TransactionsProvider = ({
         name: item,
         quantity: totalTransactions[item],
       };
-    }
+    },
   );
 
-  dataItems.map((unityCoin) =>
+  dataItems.map(unityCoin =>
     handleConvertTransactions.map(
-      (transactionItem) =>
+      transactionItem =>
         transactionItem.name === unityCoin.name &&
         newValues.push({
           name: transactionItem.name,
           quantity: transactionItem.quantity,
           price: unityCoin.price,
-        })
-    )
+        }),
+    ),
   );
 
   /**
@@ -240,7 +240,7 @@ export const TransactionsProvider = ({
    */
   const calculateAllTransactions = newValues
     .sort((a, b) => a.name.localeCompare(b.name))
-    .map((item) => {
+    .map(item => {
       const calculate = item.quantity * item.price;
       return calculate;
     });
@@ -254,7 +254,7 @@ export const TransactionsProvider = ({
    */
   const updatedValue = calculateAllTransactions.reduce(
     (total, item) => total + item,
-    0
+    0,
   );
 
   return (

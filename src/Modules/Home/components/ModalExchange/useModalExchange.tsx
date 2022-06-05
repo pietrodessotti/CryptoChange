@@ -30,7 +30,7 @@ export const useModalExchange = (): ContextUseModalData => {
    * Function responsible for sorting the data of the chart.
    */
   const newSort = dataItems.sort(
-    (menor, maior) => maior.priceChange1d - menor.priceChange1d
+    (menor, maior) => maior.priceChange1d - menor.priceChange1d,
   );
 
   /**
@@ -40,8 +40,8 @@ export const useModalExchange = (): ContextUseModalData => {
    * @description
    * Function responsible for filtering the data of the chart.
    */
-  const newDataCoin = newSort.map((item) =>
-    item.id === coinSelected.id ? item : ''
+  const newDataCoin = newSort.map(item =>
+    item.id === coinSelected.id ? item : '',
   );
 
   /**
@@ -51,7 +51,7 @@ export const useModalExchange = (): ContextUseModalData => {
    * @description
    * Function responsible for mapping results of newDataCoin.
    */
-  const newArr = newDataCoin.map((item) => item);
+  const newArr = newDataCoin.map(item => item);
 
   const nameCoin = coinSelected.name;
   const valueCoin = coinSelected.priceChange1d;

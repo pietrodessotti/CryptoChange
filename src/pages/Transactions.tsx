@@ -47,14 +47,14 @@ export default function Transactions({ coin, fiduciary }: Props): JSX.Element {
 export const getServerSideProps: GetServerSideProps = async () => {
   const dataCurrency = api
     .get(`coins?currency=BRL`)
-    .then((response) => response.data.coins);
+    .then(response => response.data.coins);
 
   // Fetch data from external API
   const typeCurrency = comercialCoin
     .get(
-      `https://v6.exchangerate-api.com/v6/c87de6b059e6791749e979f7/latest/BRL`
+      `https://v6.exchangerate-api.com/v6/c87de6b059e6791749e979f7/latest/BRL`,
     )
-    .then((response) => response.data.conversion_rates);
+    .then(response => response.data.conversion_rates);
 
   // Pass data to the page via props
   return {

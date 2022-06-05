@@ -51,7 +51,7 @@ export const BuyCryptocurrenciesTab = (): JSX.Element => {
                   min: 1,
                   max: valueInputQuantity,
                 })}
-                onChange={(e) => setValueInputQuantity(Number(e.target.value))}
+                onChange={e => setValueInputQuantity(Number(e.target.value))}
                 value={valueInputQuantity}
                 required
               />
@@ -64,7 +64,7 @@ export const BuyCryptocurrenciesTab = (): JSX.Element => {
                 className={styles.totalWithSelect}
                 type="number"
                 {...register('quantity')}
-                onChange={(e) => setValueInputQuantity(Number(e.target.value))}
+                onChange={e => setValueInputQuantity(Number(e.target.value))}
                 value={(valueInputQuantity / coinSelected.price).toFixed(4)}
                 disabled
               />

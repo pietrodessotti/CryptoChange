@@ -53,7 +53,7 @@ export const Header = ({
           </div>
 
           <select value={typeCurrency} onChange={handleChangeValue}>
-            {arrTypeCurrency?.map((comercialCoin) => (
+            {arrTypeCurrency?.map(comercialCoin => (
               <option key={comercialCoin.name}>{comercialCoin.name}</option>
             ))}
           </select>

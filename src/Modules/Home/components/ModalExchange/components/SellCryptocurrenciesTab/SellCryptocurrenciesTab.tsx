@@ -53,7 +53,7 @@ export const SellCryptocurrenciesTab = (): JSX.Element => {
                   min: 0.00001,
                   max: valueInputQuantity,
                 })}
-                onChange={(e) => setValueInputQuantity(Number(e.target.value))}
+                onChange={e => setValueInputQuantity(Number(e.target.value))}
                 value={valueInputQuantity}
                 required
               />

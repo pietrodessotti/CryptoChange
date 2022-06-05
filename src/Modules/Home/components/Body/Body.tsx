@@ -65,11 +65,31 @@ export const Body = ({ onOpenNewTransactionModal }: Props) => {
         <table>
           <thead>
             <tr className={styles.skeletonLine}>
-              <Skeleton width={200} height={25} style={{margin: '0 60px 0 20px'}} />
-              <Skeleton width={80} height={25} style={{margin: '0 100px 0 20px'}} />
-              <Skeleton width={120} height={25} style={{margin: '0 55px 0 20px'}} />
-              <Skeleton width={250} height={25} style={{margin: '0 60px 0 20px'}} />
-              <Skeleton width={110} height={25} style={{margin: '0 0 0 20px'}} />
+              <Skeleton
+                width={200}
+                height={25}
+                style={{ margin: '0 60px 0 20px' }}
+              />
+              <Skeleton
+                width={80}
+                height={25}
+                style={{ margin: '0 100px 0 20px' }}
+              />
+              <Skeleton
+                width={120}
+                height={25}
+                style={{ margin: '0 55px 0 20px' }}
+              />
+              <Skeleton
+                width={250}
+                height={25}
+                style={{ margin: '0 60px 0 20px' }}
+              />
+              <Skeleton
+                width={110}
+                height={25}
+                style={{ margin: '0 0 0 20px' }}
+              />
             </tr>
           </thead>
         </table>
@@ -84,7 +104,7 @@ export const Body = ({ onOpenNewTransactionModal }: Props) => {
             </tr>
           </thead>
           <tbody>
-            {dataItems.map((unityCoin) => (
+            {dataItems.map(unityCoin => (
               <tr className={styles.tableBodyContainer} key={unityCoin.id}>
                 <td className={styles.nameRow}>{unityCoin.name}</td>
                 <td className={styles.columnSymbol}>

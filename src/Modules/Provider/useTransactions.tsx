@@ -15,92 +15,92 @@ import { TransactionsContextData } from './types';
 export const useTransactions = (): TransactionsContextData => {
   const handleSearch = useContextSelector(
     Transactions,
-    (transaction) => transaction.handleSearch
+    transaction => transaction.handleSearch,
   );
 
   const fiduciary = useContextSelector(
     Transactions,
-    (transaction) => transaction.fiduciary
+    transaction => transaction.fiduciary,
   );
 
   const typeCurrency = useContextSelector(
     Transactions,
-    (transaction) => transaction.typeCurrency
+    transaction => transaction.typeCurrency,
   );
 
   const handleChangeValue = useContextSelector(
     Transactions,
-    (transaction) => transaction.handleChangeValue
+    transaction => transaction.handleChangeValue,
   );
 
   const newConvert = useContextSelector(
     Transactions,
-    (transaction) => transaction.newConvert
+    transaction => transaction.newConvert,
   );
 
   const dataItems = useContextSelector(
     Transactions,
-    (transaction) => transaction.dataItems
+    transaction => transaction.dataItems,
   );
 
   const handleSetCoinForSelect = useContextSelector(
     Transactions,
-    (transaction) => transaction.handleSetCoinForSelect
+    transaction => transaction.handleSetCoinForSelect,
   );
 
   const handleCloseModal = useContextSelector(
     Transactions,
-    (transaction) => transaction.handleCloseModal
+    transaction => transaction.handleCloseModal,
   );
 
   const modalIsOpen = useContextSelector(
     Transactions,
-    (transaction) => transaction.modalIsOpen
+    transaction => transaction.modalIsOpen,
   );
 
   const coinSelected = useContextSelector(
     Transactions,
-    (transaction) => transaction.coinSelected
+    transaction => transaction.coinSelected,
   );
 
   const values = useContextSelector(
     Transactions,
-    (transaction) => transaction.values
+    transaction => transaction.values,
   );
 
   const handleCreateNewTransaction = useContextSelector(
     Transactions,
-    (transaction) => transaction.handleCreateNewTransaction
+    transaction => transaction.handleCreateNewTransaction,
   );
 
   const messageSuccess = useContextSelector(
     Transactions,
-    (transaction) => transaction.messageSuccess
+    transaction => transaction.messageSuccess,
   );
 
   const loading = useContextSelector(
     Transactions,
-    (transaction) => transaction.loading
+    transaction => transaction.loading,
   );
 
   const valueInputQuantity = useContextSelector(
     Transactions,
-    (transaction) => transaction.valueInputQuantity
+    transaction => transaction.valueInputQuantity,
   );
 
   const setValueInputQuantity = useContextSelector(
     Transactions,
-    (transaction) => transaction.setValueInputQuantity
+    transaction => transaction.setValueInputQuantity,
   );
 
   const updatedValue = useContextSelector(
     Transactions,
-    (transaction) => transaction.updatedValue
+    transaction => transaction.updatedValue,
   );
 
   const handleConvertTransactions = useContextSelector(
     Transactions,
-    (transaction) => transaction.handleConvertTransactions
+    transaction => transaction.handleConvertTransactions,
   );
 
   return {
