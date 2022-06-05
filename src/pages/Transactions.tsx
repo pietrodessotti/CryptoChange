@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 
-import { TransactionsProvider } from "@Provider/index";
-import TransactionsPage from "@Transactions/index";
+import { TransactionsProvider } from '@Provider/index';
+import TransactionsPage from '@Transactions/index';
 import { api, comercialCoin } from '@services/api';
 
 type Coin = {
@@ -14,25 +14,25 @@ type Coin = {
   symbol: string;
   icon: string;
   websiteUrl: string;
-}
+};
 
 export type FiduciaryConvert = {
   name: string | any;
   price: number | any;
-}
+};
 
 type Props = {
   coin: Array<Coin>;
   fiduciary: Array<FiduciaryConvert>;
-}
+};
 
 /**
- * @export 
+ * @export
  * @page
  * @name Transactions
- * 
+ *
  * @description
- * 
+ *
  * Esse componente irá carregar os dados da página
  * de transações com SSR.
  */
@@ -41,9 +41,8 @@ export default function Transactions({ coin, fiduciary }: Props): JSX.Element {
     <TransactionsProvider firstCoins={coin} fiduciary={fiduciary}>
       <TransactionsPage />
     </TransactionsProvider>
-  )
+  );
 }
-
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const dataCurrency = api
@@ -57,12 +56,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
     )
     .then((response) => response.data.conversion_rates);
 
-
   // Pass data to the page via props
   return {
     props: {
       coin: await dataCurrency,
       fiduciary: await typeCurrency,
-    }
+    },
   };
 };

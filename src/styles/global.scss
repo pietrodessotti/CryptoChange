@@ -1,36 +1,36 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    // --header: #150336;
-    --header: #ffffff;
+  // --header: #150336;
+  --header: #ffffff;
 
-    --border: #432870;
-    --background: #dad8d8;
+  --border: #432870;
+  --background: #dad8d8;
 
-    --titles: #38A169;
-    --paragraphs: #C6F6D5;
-    --logotipo: #68D391;
+  --titles: #38a169;
+  --paragraphs: #c6f6d5;
+  --logotipo: #68d391;
 }
 
-@media(max-width: 1000px) {
-    html {
-        font-size: 93.75%;
-    }
+@media (max-width: 1000px) {
+  html {
+    font-size: 93.75%;
+  }
 }
 
-@media(max-width: 720px) {
-    html {
-        font-size: 87.5%;
-    }
+@media (max-width: 720px) {
+  html {
+    font-size: 87.5%;
+  }
 }
 
 body {
-    background: var(--background);
-    color: var(--titles);
+  background: var(--background);
+  color: var(--titles);
 }
 
 body,
@@ -38,40 +38,40 @@ input,
 textarea,
 select,
 button {
-    font: 400 1rem "Roboto" sans-serif;
+  font: 400 1rem 'Roboto' sans-serif;
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 .react-modal-overlay {
-    background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .react-modal-content {
-    width: 100%;
-    max-width: 676px;
-    height: 100%;
-    max-height: 600px;
-    background-color: #fffdfd;
-    padding: 3rem;
-    position: relative;
-    border-radius: 0.24rem;
-    overflow: auto;
+  width: 100%;
+  max-width: 676px;
+  height: 100%;
+  max-height: 600px;
+  background-color: #fffdfd;
+  padding: 3rem;
+  position: relative;
+  border-radius: 0.24rem;
+  overflow: auto;
 }

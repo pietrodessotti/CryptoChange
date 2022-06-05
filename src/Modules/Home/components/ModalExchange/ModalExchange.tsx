@@ -26,11 +26,11 @@ export const ModalExchange = ({
 
   const handleChangeTabBuy = () => {
     setActiveTab('buy');
-  }
+  };
 
   const handleChangeTabSell = () => {
     setActiveTab('sell');
-  }
+  };
 
   return (
     <div className={styles.modal}>
@@ -42,10 +42,10 @@ export const ModalExchange = ({
         ariaHideApp={false}
       >
         <div className={styles.controllerTabModal}>
-          <p id='TabContentBuy' onClick={handleChangeTabBuy}>
+          <p id="TabContentBuy" onClick={handleChangeTabBuy}>
             Comprar
           </p>
-          <p id='TabContentSell' onClick={handleChangeTabSell}>
+          <p id="TabContentSell" onClick={handleChangeTabSell}>
             Vender
           </p>
         </div>

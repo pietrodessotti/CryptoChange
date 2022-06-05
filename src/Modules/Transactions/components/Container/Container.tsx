@@ -10,21 +10,25 @@ import Body from '../Body';
  * @export
  * @component
  * @name Container
- * 
+ *
  * @description
  * Esse componente ficará responsável pela
  * montagem da tela de transações.
  */
 export const Container = () => {
-    const { typeCurrency, newConvert, handleChangeValue, updatedValue } = useTransactions();
+  const { typeCurrency, newConvert, handleChangeValue, updatedValue } =
+    useTransactions();
 
-    return (
-        <>
-            <Header typeCurrency={typeCurrency} arrTypeCurrency={newConvert}
-                handleChangeValue={handleChangeValue} totalTransactions={updatedValue}
-            />
-            <Body />
-            <Footer />
-        </>
-    );
+  return (
+    <>
+      <Header
+        typeCurrency={typeCurrency}
+        arrTypeCurrency={newConvert}
+        handleChangeValue={handleChangeValue}
+        totalTransactions={updatedValue}
+      />
+      <Body />
+      <Footer />
+    </>
+  );
 };

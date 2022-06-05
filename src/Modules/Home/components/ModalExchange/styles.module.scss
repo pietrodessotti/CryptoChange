@@ -1,141 +1,141 @@
 .controllerTabModal {
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 
-    p {
-        padding: 0 0.5rem;
-        border-radius: 0.25rem;
-        font-size: 1rem;
-        font-weight: bold;
-        border-bottom: 1px solid;
-        cursor: pointer;
+  p {
+    padding: 0 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-bottom: 1px solid;
+    cursor: pointer;
 
-        &.active {
-            background-color: gray;
-            border-bottom: 1px solid;
-        }
+    &.active {
+      background-color: gray;
+      border-bottom: 1px solid;
     }
+  }
 }
 
 .selectCoin,
 .inputValue,
 .totalWithSelect {
-    width: 100%;
-    padding: 0 1.5rem;
-    height: 2.5rem;
-    border-radius: 0.3rem;
-    margin-top: 5px;
+  width: 100%;
+  padding: 0 1.5rem;
+  height: 2.5rem;
+  border-radius: 0.3rem;
+  margin-top: 5px;
 
-    border: none;
-    border-bottom: 2px solid #d4d4d4;
+  border: none;
+  border-bottom: 2px solid #d4d4d4;
 
-    font-weight: 400;
-    font-size: 1rem;
-    outline: none;
-    box-shadow: 0 3px 5px 1px #e4e4e4;
+  font-weight: 400;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: 0 3px 5px 1px #e4e4e4;
 
-    &:focus {
-        border-bottom: 2px solid #00bcd4;
-    }
+  &:focus {
+    border-bottom: 2px solid #00bcd4;
+  }
 
-    &::placeholder {
-        color: #d4d4d4;
-    }
+  &::placeholder {
+    color: #d4d4d4;
+  }
 }
 
-.selectCoin{
-    margin-bottom: 2rem;
-    background-color: #dddddd;
+.selectCoin {
+  margin-bottom: 2rem;
+  background-color: #dddddd;
 }
 
 .inputValue {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .totalWithSelect {
-    margin-bottom: 2rem;
-    background-color: #dddddd;
-    appearance: none;
+  margin-bottom: 2rem;
+  background-color: #dddddd;
+  appearance: none;
 }
 
 .label {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #44af83;
-    margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #44af83;
+  margin-bottom: 0.5rem;
 }
 
 .formButtons {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
 
-    margin-top: 20px;
+  margin-top: 20px;
 
-    button {
-        padding: 8px 30px;
-        border-radius: 7px;
-        color: white;
-        font-weight: bold;
-
-        transition: filter 0.3s;
-
-        &:hover {
-            filter: brightness(0.9);
-        }
-    }
-    
-    &button {
-        margin-top: 50px;
-    }
-
-    .cancelButton {
-        border: 1px solid #a33737;
-        background-color: #b94747;
-    }
-
-    .submitButton {
-        border: 1px solid green;
-        background-color: #38A169;
-    }
-}
-
-.messageSuccess {
-    top: 35px;
-    right: 300px;
-    color: #f1f0f0;
-    font-size: 1.2rem;
-    margin: -10px auto 10px;
-    text-align: center;
+  button {
+    padding: 8px 30px;
+    border-radius: 7px;
+    color: white;
     font-weight: bold;
-    width: 350px;
-    
-    border: 1px solid #f1f0f0;;
-    border-radius: 0.5rem;
-    padding: 0.6rem;
-    background-color: rgb(96, 194, 57);
-}
-
-.seeGraph {
-    color: #f1f0f0;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 10px; 
-    border-radius: 5px; 
-    background-color: rgb(87, 75, 253);
-    margin: auto;
-    text-align: center;
-    font-family: 'Courier New', Courier, monospace;
-    width: 180px;
 
     transition: filter 0.3s;
 
     &:hover {
-        filter: brightness(0.9);
+      filter: brightness(0.9);
     }
+  }
+
+  &button {
+    margin-top: 50px;
+  }
+
+  .cancelButton {
+    border: 1px solid #a33737;
+    background-color: #b94747;
+  }
+
+  .submitButton {
+    border: 1px solid green;
+    background-color: #38a169;
+  }
+}
+
+.messageSuccess {
+  top: 35px;
+  right: 300px;
+  color: #f1f0f0;
+  font-size: 1.2rem;
+  margin: -10px auto 10px;
+  text-align: center;
+  font-weight: bold;
+  width: 350px;
+
+  border: 1px solid #f1f0f0;
+  border-radius: 0.5rem;
+  padding: 0.6rem;
+  background-color: rgb(96, 194, 57);
+}
+
+.seeGraph {
+  color: #f1f0f0;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgb(87, 75, 253);
+  margin: auto;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  width: 180px;
+
+  transition: filter 0.3s;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
 }

@@ -14,34 +14,33 @@ type Coin = {
   symbol: string;
   icon: string;
   websiteUrl: string;
-}
+};
 
 export type FiduciaryConvert = {
   name: string | any;
   price: number | any;
-}
+};
 
 type Props = {
   coin: Array<Coin>;
   fiduciary: Array<FiduciaryConvert>;
-}
+};
 
 /**
  * @component
  * @component
  * @name InitialPage
- * 
+ *
  * @description
  * Responsible for the page what will be loaded
  * on the server side.
  */
 export default function InitialPage({ coin, fiduciary }: Props): JSX.Element {
-
   return (
-    <TransactionsProvider firstCoins={coin} fiduciary={fiduciary} >
+    <TransactionsProvider firstCoins={coin} fiduciary={fiduciary}>
       <Home />
     </TransactionsProvider>
-  )
+  );
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -56,12 +55,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
     )
     .then((response) => response.data.conversion_rates);
 
-
   // Pass data to the page via props
   return {
     props: {
       coin: await dataCurrency,
       fiduciary: await typeCurrency,
-    }
+    },
   };
 };

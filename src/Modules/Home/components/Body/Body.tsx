@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react';
+/* eslint-disable no-unused-vars */
+import React from 'react';
 import Image from 'next/image';
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 import styles from './styles.module.scss';
 import { useTransactions } from '@Provider/useTransactions';
-import { ConvertReturnAPI } from '@Provider/types';
 
 export type PropCoin = {
   id: string;
@@ -34,10 +34,8 @@ type Props = {
  * Componente responsável por montar o body
  * da home page.
  */
-export const Body = ({
-  onOpenNewTransactionModal,
-}: Props) => {
-  const { handleSearch, dataItems, typeCurrency, } = useTransactions();
+export const Body = ({ onOpenNewTransactionModal }: Props) => {
+  const { handleSearch, dataItems, typeCurrency } = useTransactions();
 
   return (
     <>
@@ -52,12 +50,19 @@ export const Body = ({
             />
           </div>
 
-          <h1 className={styles.titleTable}>Sua casa de compra e venda de CryptoMoedas</h1>
-          <input id="inputSearch" placeholder='Procurar uma Crypto...' className={styles.inputSearch}
-            type='search' onChange={handleSearch} />
+          <h1 className={styles.titleTable}>
+            Sua casa de compra e venda de CryptoMoedas
+          </h1>
+          <input
+            id="inputSearch"
+            placeholder="Procurar uma Crypto..."
+            className={styles.inputSearch}
+            type="search"
+            onChange={handleSearch}
+          />
         </div>
 
-        {/* <table>
+        <table>
           <thead>
             <tr className={styles.skeletonLine}>
               <Skeleton width={200} height={25} style={{margin: '0 60px 0 20px'}} />
@@ -67,7 +72,7 @@ export const Body = ({
               <Skeleton width={110} height={25} style={{margin: '0 0 0 20px'}} />
             </tr>
           </thead>
-        </table> */}
+        </table>
         <table className={styles.tableContainer}>
           <thead className={styles.tableHeaderContainer}>
             <tr className={styles.lineHeaderTable}>
@@ -79,18 +84,18 @@ export const Body = ({
             </tr>
           </thead>
           <tbody>
-
             {dataItems.map((unityCoin) => (
-              
               <tr className={styles.tableBodyContainer} key={unityCoin.id}>
                 <td className={styles.nameRow}>{unityCoin.name}</td>
                 <td className={styles.columnSymbol}>
                   {<img src={unityCoin.icon} width="15" />} {unityCoin.symbol}
                 </td>
-                <td className={styles.nameRow}>{new Intl.NumberFormat('pt-BR', {
-                  style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
-                }).format(unityCoin.price)
-                }</td>
+                <td className={styles.nameRow}>
+                  {new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: typeCurrency ? typeCurrency : 'BRL',
+                  }).format(unityCoin.price)}
+                </td>
                 <td className={styles.nameRow}>
                   <a
                     href={unityCoin.websiteUrl}
@@ -102,8 +107,11 @@ export const Body = ({
                 </td>
 
                 <td>
-                  <button key={unityCoin.id} className={styles.buttonBuyCrypto}
-                    onClick={() => onOpenNewTransactionModal(unityCoin)}>
+                  <button
+                    key={unityCoin.id}
+                    className={styles.buttonBuyCrypto}
+                    onClick={() => onOpenNewTransactionModal(unityCoin)}
+                  >
                     Negociar
                   </button>
                 </td>
