@@ -1,3 +1,3 @@
-import { options } from './configuration';;
+import { options } from './configuration';
 
 export default options;

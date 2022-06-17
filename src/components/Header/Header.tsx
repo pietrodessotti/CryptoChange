@@ -7,14 +7,14 @@ import styles from './styles.module.scss';
 type FiduciaryCoin = {
   name: string;
   price: number | string;
-}
+};
 
 type Props = {
   typeCurrency: string;
   handleChangeValue: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   arrTypeCurrency: Array<FiduciaryCoin>;
   totalTransactions: number;
-}
+};
 
 /**
  * @export
@@ -24,7 +24,12 @@ type Props = {
  * @description
  * Componente responsável por montar o Header da aplicação.
  */
-export const Header = ({ typeCurrency, arrTypeCurrency, totalTransactions, handleChangeValue}: Props) => {
+export const Header = ({
+  typeCurrency,
+  arrTypeCurrency,
+  totalTransactions,
+  handleChangeValue,
+}: Props) => {
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
@@ -39,17 +44,17 @@ export const Header = ({ typeCurrency, arrTypeCurrency, totalTransactions, handl
           <Link href="/">Home</Link>
           <Link href="/Transactions">Exchenge</Link>
         </nav>
-        <div>
-          <div className={styles.headerCurrency}>
+        <div className={styles.headerCurrency}>
+          <div className={styles.valueCurrency}>
             <p>{`${new Intl.NumberFormat('pt-BR', {
-              style: 'currency', currency: typeCurrency ? typeCurrency : 'BRL'
-            }).format(totalTransactions)
-              }`}</p>
+              style: 'currency',
+              currency: typeCurrency ? typeCurrency : 'BRL',
+            }).format(totalTransactions)}`}</p>
           </div>
 
-          <select value={typeCurrency} onChange={handleChangeValue}>
-            {arrTypeCurrency?.map((comercialCoin) => (
-                <option key={comercialCoin.name}>{comercialCoin.name}</option>
+          <select className={styles.selectCurrency} value={typeCurrency} onChange={handleChangeValue}>
+            {arrTypeCurrency?.map(comercialCoin => (
+              <option key={comercialCoin.name}>{comercialCoin.name}</option>
             ))}
           </select>
         </div>

@@ -6,13 +6,10 @@ import Container from './components/Container';
  * @export
  * @component
  * @name TransactionsPage
- * 
+ *
  * @description
- * Esse componente irá carregar os dados de todas
- * as transações realizadas na HomePage.
+ * Component responsible for rendering the transactions page.
  */
 export const TransactionsPage = (): JSX.Element => {
-    return (
-        <Container />
-    );
+  return <Container />;
 };
