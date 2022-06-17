@@ -17,7 +17,6 @@ import ModalExchange from '../ModalExchange';
  */
 export const Container = (): JSX.Element => {
   const {
-    handleSetCoinForSelect,
     handleCloseModal,
     modalIsOpen,
     typeCurrency,
@@ -34,7 +33,7 @@ export const Container = (): JSX.Element => {
         handleChangeValue={handleChangeValue}
         totalTransactions={updatedValue}
       />
-      <Body onOpenNewTransactionModal={handleSetCoinForSelect} />
+      <Body />
       <ModalExchange isOpen={modalIsOpen} onRequestClose={handleCloseModal} />
 
       <Footer />

@@ -44,15 +44,15 @@ export const Header = ({
           <Link href="/">Home</Link>
           <Link href="/Transactions">Exchenge</Link>
         </nav>
-        <div>
-          <div className={styles.headerCurrency}>
+        <div className={styles.headerCurrency}>
+          <div className={styles.valueCurrency}>
             <p>{`${new Intl.NumberFormat('pt-BR', {
               style: 'currency',
               currency: typeCurrency ? typeCurrency : 'BRL',
             }).format(totalTransactions)}`}</p>
           </div>
 
-          <select value={typeCurrency} onChange={handleChangeValue}>
+          <select className={styles.selectCurrency} value={typeCurrency} onChange={handleChangeValue}>
             {arrTypeCurrency?.map(comercialCoin => (
               <option key={comercialCoin.name}>{comercialCoin.name}</option>
             ))}

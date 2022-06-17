@@ -25,6 +25,7 @@ type Data = {
   quantity: number;
   total: number;
   fiduciary: string;
+  operation: string;
 };
 
 type TransactionsProviderProps = {
@@ -48,9 +49,7 @@ export const TransactionsProvider = ({
   fiduciary,
 }: TransactionsProviderProps): JSX.Element => {
   const [typeCurrency, setTypeCurrency] = useState('');
-  const [coinSelected, setCoinSelected] = useState<SetStateAction<PropCoin[]>>(
-    [],
-  );
+  const [coinSelected, setCoinSelected] = useState<SetStateAction<PropCoin>>();
   const [search, setSearch] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [values, setValues] = useState<Data[]>([]);
@@ -58,6 +57,7 @@ export const TransactionsProvider = ({
   const [messageSuccess, setMessageSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const [valueInputQuantity, setValueInputQuantity] = useState(0);
+  const [activeTab, setActiveTab] = useState('buy');
 
   const newValues: Array<ConvertReturnAPI> = [];
 
@@ -135,7 +135,7 @@ export const TransactionsProvider = ({
    * Responsible for indicate the coin selected and
    * open the modal.
    */
-  const handleSetCoinForSelect = (coin: Array<PropCoin>) => {
+  const handleSetCoinForSelect = (coin: PropCoin) => {
     setCoinSelected(coin);
     setModalIsOpen(true);
   };
@@ -151,6 +151,31 @@ export const TransactionsProvider = ({
   const handleCloseModal = () => {
     setModalIsOpen(false);
     setLoading(false);
+    setActiveTab('buy');
+  };
+
+  /**
+   * @export
+   * @function
+   * @name handleChangeTabBuy
+   *
+   * @description
+   * Responsible for seting tab buy.
+   */
+  const handleChangeTabBuy = () => {
+    setActiveTab('buy');
+  };
+
+  /**
+   * @export
+   * @function
+   * @name handleChangeTabSell
+   *
+   * @description
+   * Responsible for seting tab sell.
+   */
+  const handleChangeTabSell = () => {
+    setActiveTab('sell');
   };
 
   /**
@@ -170,16 +195,20 @@ export const TransactionsProvider = ({
     setValues([
       ...values,
       {
+        operation: activeTab,
         id: nameCrypto.value,
         name: nameCrypto.value,
         date: `${new Date().toLocaleDateString()} ás ${new Date().toLocaleTimeString()}`,
-        quantity: parseFloat(quantity.value),
+        quantity:
+          activeTab === 'sell'
+            ? -parseFloat(quantity.value)
+            : parseFloat(quantity.value),
         total: parseFloat(referencePrice.value),
         fiduciary: typeCurrency,
       },
     ]);
 
-    setMessageSuccess(`${nameCrypto.value}  adicionado com sucesso!`);
+    setMessageSuccess(`${nameCrypto.value} adicionado com sucesso!`);
     setLoading(true);
     setValueInputQuantity(0);
 
@@ -242,6 +271,7 @@ export const TransactionsProvider = ({
     .sort((a, b) => a.name.localeCompare(b.name))
     .map(item => {
       const calculate = item.quantity * item.price;
+
       return calculate;
     });
 
@@ -256,6 +286,7 @@ export const TransactionsProvider = ({
     (total, item) => total + item,
     0,
   );
+  console.log(calculateAllTransactions);
 
   return (
     <>
@@ -267,7 +298,6 @@ export const TransactionsProvider = ({
           fiduciary,
           newConvert,
           dataItems,
-          handleSetCoinForSelect,
           handleCloseModal,
           modalIsOpen,
           coinSelected,
@@ -279,6 +309,10 @@ export const TransactionsProvider = ({
           setValueInputQuantity,
           updatedValue,
           handleConvertTransactions,
+          handleSetCoinForSelect,
+          handleChangeTabBuy,
+          handleChangeTabSell,
+          activeTab,
         }}
       >
         {children}

@@ -34,6 +34,7 @@ export type ConvertReturnAPI = {
   name: string;
   quantity: number;
   price?: number | any;
+  operation?: string;
 };
 
 export type ValuesType = {
@@ -44,6 +45,8 @@ export type ValuesType = {
   fiduciary: string;
 };
 
+export type Functions = () => void;
+
 export type TransactionsContextData = {
   typeCurrency: string;
   handleChangeValue: (e: any) => void;
@@ -53,8 +56,7 @@ export type TransactionsContextData = {
   dataItems: Array<PropCoin>;
   fiduciary: Array<FiduciaryCoin>;
   newConvert: Array<FiduciaryCoin>;
-  handleCloseModal: () => void;
-  handleSetCoinForSelect: (coin: Array<PropCoin>) => void;
+  handleCloseModal: Functions;
   modalIsOpen: boolean;
   coinSelected: any;
   values: ValuesType[];
@@ -64,6 +66,9 @@ export type TransactionsContextData = {
   valueInputQuantity: number;
   setValueInputQuantity: Dispatch<SetStateAction<number>>;
   updatedValue: number;
-
+  handleSetCoinForSelect: (coin: PropCoin) => void;
   handleConvertTransactions: ConvertReturnAPI[];
+  handleChangeTabBuy: Functions;
+  handleChangeTabSell: Functions;
+  activeTab: string;
 };

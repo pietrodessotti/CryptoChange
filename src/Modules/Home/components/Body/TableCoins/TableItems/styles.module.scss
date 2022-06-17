@@ -1,0 +1,42 @@
+.tableBodyContainer {
+  td {
+    margin: 1.2rem 0;
+  }
+  .nameRow {
+    max-width: 20ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 15px;
+    white-space: nowrap;
+  }
+
+  .columnSymbol {
+    padding: 5px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    :nth-child(1) {
+      margin-right: 5px;
+    }
+  }
+
+  .buttonBuyCrypto {
+    display: flex;
+    margin: auto;
+    margin: 5px auto;
+    padding: 4px 20px;
+    border-radius: 5px;
+    border: 1px solid rgb(78, 173, 40);
+    background-color: transparent;
+    color: rgb(96, 194, 57);
+    font-weight: bold;
+
+    transition: 0.3s;
+
+    &:hover {
+      background-color: rgb(96, 194, 57);
+      color: white;
+    }
+  }
+}

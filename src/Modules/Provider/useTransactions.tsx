@@ -43,11 +43,6 @@ export const useTransactions = (): TransactionsContextData => {
     transaction => transaction.dataItems,
   );
 
-  const handleSetCoinForSelect = useContextSelector(
-    Transactions,
-    transaction => transaction.handleSetCoinForSelect,
-  );
-
   const handleCloseModal = useContextSelector(
     Transactions,
     transaction => transaction.handleCloseModal,
@@ -103,6 +98,26 @@ export const useTransactions = (): TransactionsContextData => {
     transaction => transaction.handleConvertTransactions,
   );
 
+  const handleSetCoinForSelect = useContextSelector(
+    Transactions,
+    transaction => transaction.handleSetCoinForSelect,
+  );
+
+  const activeTab = useContextSelector(
+    Transactions,
+    transaction => transaction.activeTab,
+  );
+
+  const handleChangeTabBuy = useContextSelector(
+    Transactions,
+    transaction => transaction.handleChangeTabBuy,
+  );
+
+  const handleChangeTabSell = useContextSelector(
+    Transactions,
+    transaction => transaction.handleChangeTabSell,
+  );
+
   return {
     typeCurrency,
     handleChangeValue,
@@ -110,7 +125,6 @@ export const useTransactions = (): TransactionsContextData => {
     fiduciary,
     newConvert,
     dataItems,
-    handleSetCoinForSelect,
     handleCloseModal,
     modalIsOpen,
     coinSelected,
@@ -122,5 +136,9 @@ export const useTransactions = (): TransactionsContextData => {
     setValueInputQuantity,
     updatedValue,
     handleConvertTransactions,
+    handleSetCoinForSelect,
+    activeTab,
+    handleChangeTabBuy,
+    handleChangeTabSell,
   };
 };

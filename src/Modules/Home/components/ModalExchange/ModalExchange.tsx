@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import styles from './styles.module.scss';
 import BuyCryptocurrenciesTab from './components/BuyCryptocurrenciesTab';
 import SellCryptocurrenciesTab from './components/SellCryptocurrenciesTab';
+import { useTransactions } from '@Modules/Provider/useTransactions';
 
 type PropsModal = {
   isOpen: boolean;
@@ -22,15 +23,8 @@ export const ModalExchange = ({
   isOpen,
   onRequestClose,
 }: PropsModal): JSX.Element => {
-  const [activeTab, setActiveTab] = useState('buy');
-
-  const handleChangeTabBuy = () => {
-    setActiveTab('buy');
-  };
-
-  const handleChangeTabSell = () => {
-    setActiveTab('sell');
-  };
+  const { handleChangeTabSell, handleChangeTabBuy, activeTab } =
+  useTransactions();
 
   return (
     <div className={styles.modal}>
@@ -42,13 +36,13 @@ export const ModalExchange = ({
         ariaHideApp={false}
       >
         <div className={styles.controllerTabModal}>
-          <p id="TabContentBuy" onClick={handleChangeTabBuy}>
+          <p className={activeTab === 'buy' ? styles.active : ''} id="TabContentBuy" onClick={handleChangeTabBuy}>
             Comprar
           </p>
-          <p id="TabContentSell" onClick={handleChangeTabSell}>
+          <p className={activeTab === 'sell' ? styles.active : ''} id="TabContentSell" onClick={handleChangeTabSell}>
             Vender
           </p>
-        </div>
+          </div>
 
         {activeTab === 'buy' ? (
           <BuyCryptocurrenciesTab />
